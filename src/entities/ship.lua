@@ -45,11 +45,18 @@ ship = entity:extend({
 
         -- handle fire
         if btnp(4) then
-            bullet:new({
-                x = front.x,
-                y = front.y,
-                rotation = rotation
-            })
+
+            if (gamestate.bullet_count < gamestate.bullet_max) then
+
+                bullet:new({
+                    x = front.x,
+                    y = front.y,
+                    rotation = rotation
+                })
+
+                gamestate.bullet_count += 1
+                
+            end
         end
 
         -- update position
@@ -79,6 +86,8 @@ ship = entity:extend({
 
     draw = function(_ENV) 
         
+        print(tostr(gamestate.bullet_count) .. "/" .. tostr(gamestate.bullet_max))
+
         line(front.x, front.y, rear_left.x, rear_left.y)
         line(front.x, front.y, rear_right.x, rear_right.y)
         line(rear_left.x, rear_left.y, rear_right.x, rear_right.y)

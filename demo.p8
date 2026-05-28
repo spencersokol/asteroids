@@ -7,6 +7,7 @@ __lua__
 #include src/utils/globals.lua
 #include src/utils/class.lua
 #include src/utils/gameobject.lua
+#include src/utils/gamestate.lua
 
 #include src/entities/entity.lua
 #include src/entities/ship.lua

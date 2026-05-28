@@ -1,4 +1,5 @@
 game = scene:extend({
+
     init = function(_ENV)
         ship:new()
     end,
@@ -14,7 +15,10 @@ game = scene:extend({
             -- do collisions
 
             -- bullets should only travel so far
-            if (e:is(bullet) and e.distance > 130) del(entity.objects, e)
+            if (e:is(bullet) and e.distance > 130) then
+                gamestate.bullet_count -= 1
+                del(entity.objects, e)
+            end
 
         end
 
@@ -32,5 +36,9 @@ game = scene:extend({
             e:draw()
         end
 
+    end,
+
+    destroy = function(_ENV)
+        gamestate:destroy()
     end
 })

@@ -11,6 +11,7 @@ I wanna learn PICO-8, and my spouse's favorite game is Asteroids, so here we go.
 - Add asteroids
 - Add various size asteroids
 - Add collisions
+- ~~Add game state~~
 - Add scoring
 - Add player lives
 - Add rear booster fire animation while ship moving
