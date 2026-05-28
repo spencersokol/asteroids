@@ -10,14 +10,22 @@ bullet = entity:extend({
     rotation = 0,
 
     -- movement
-    speed = 3,
+    speed = 5,
     velocity = { x = 0, y = 0 },
     distance = 0,
 
-    update = function(_ENV)
+    init = function(_ENV)
+
+        entity.init(_ENV)
 
         velocity.x = cos(rotation) * speed
         velocity.y = sin(rotation) * speed
+
+    end,
+
+    update = function(_ENV)
+
+        entity.update(_ENV)
 
         -- update position
         x += velocity.x

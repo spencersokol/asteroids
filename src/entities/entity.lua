@@ -4,11 +4,6 @@ entity = gameobject:extend({
     -- static
     objects = {},
 
-    -- position
-    x=0,
-    y=0,
-    speed = 1,
-
     extend = function(_ENV, tbl)
         tbl = class.extend(_ENV, tbl)
         tbl.objects = {}

@@ -23,8 +23,43 @@ ship = entity:extend({
     -- movement
     velocity = { x = 0, y = 0 },
 
+    calculate_border_points = function(_ENV)
+
+        -- calculate various border points
+        local cos = cos(rotation)
+        local sin = sin(rotation)
+
+        front.x = x + (cos * front_distance) -- - (sin * 0)
+        front.y = y + (sin * front_distance) -- + (cos * 0)
+        rear.x = x + (cos * rear_distance) -- - (sin * 0)
+        rear.y = y + (sin * rear_distance) -- + (cos * 0)
+        rear_left.x = x + (cos * -rear_distance) - (sin * side_distance)
+        rear_left.y = y + (sin * -rear_distance) + (cos * side_distance)
+        rear_right.x = x + (cos * -rear_distance) - (sin * -side_distance)
+        rear_right.y = y + (sin * -rear_distance) + (cos * -side_distance)
+
+    end,
+
+    init = function(_ENV)
+
+        entity.init(_ENV)
+
+        x = 64
+        y = 64
+
+        rotation = 0
+
+        velocity.x = 0
+        velocity.y = 0
+
+        _ENV:calculate_border_points()
+
+    end,
+
     update = function(_ENV)
         
+        entity.update(_ENV)
+
         -- handle movement input
         if btn(2) then
             velocity.x = cos(rotation) * speed
@@ -69,18 +104,7 @@ ship = entity:extend({
         if (y > 128) y = 0
         if (y < 0) y = 128
 
-        -- calculate various border points
-        local cos = cos(rotation)
-        local sin = sin(rotation)
-
-        front.x = x + (cos * front_distance) -- - (sin * 0)
-        front.y = y + (sin * front_distance) -- + (cos * 0)
-        rear.x = x + (cos * rear_distance) -- - (sin * 0)
-        rear.y = y + (sin * rear_distance) -- + (cos * 0)
-        rear_left.x = x + (cos * -rear_distance) - (sin * side_distance)
-        rear_left.y = y + (sin * -rear_distance) + (cos * side_distance)
-        rear_right.x = x + (cos * -rear_distance) - (sin * -side_distance)
-        rear_right.y = y + (sin * -rear_distance) + (cos * -side_distance)
+        _ENV:calculate_border_points()
 
     end,
 
@@ -92,23 +116,4 @@ ship = entity:extend({
         
     end,
 
-    destroy = function(_ENV)
-
-        x = 64
-        y = 64
-        front.x = 0
-        front.y = 0
-        rear.x = 0
-        rear.y = 0
-        rear_left.x = 0
-        rear_left.y = 0
-        rear_right.x = 0
-        rear_right.y = 0
-
-        rotation = 0
-
-        velocity.x = 0
-        velocity.y = 0
-
-    end
 })

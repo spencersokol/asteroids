@@ -17,7 +17,8 @@ game = scene:extend({
             -- bullets should only travel so far
             if (e:is(bullet) and e.distance > 130) then
                 gamestate.bullet_count -= 1
-                del(entity.objects, e)
+                -- del(entity.objects, e)
+                entity.destroy(e)
             end
 
         end
@@ -30,6 +31,7 @@ game = scene:extend({
     draw = function(_ENV)
         cls()
 
+        print(#entity.objects)
         -- decide on what objects to actually draw first
         -- this just tries to draw everything
         for e in all(entity.objects) do
