@@ -85,8 +85,6 @@ ship = entity:extend({
     end,
 
     draw = function(_ENV) 
-        
-        print(tostr(gamestate.bullet_count) .. "/" .. tostr(gamestate.bullet_max))
 
         line(front.x, front.y, rear_left.x, rear_left.y)
         line(front.x, front.y, rear_right.x, rear_right.y)
