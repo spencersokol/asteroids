@@ -5,13 +5,13 @@ game = scene:extend({
 
     update = function(_ENV)
 
-        -- decide on what objects to actually draw first
-        -- this just tries to draw everything
         for i = #entity.objects, 1, -1 do
             
             local e = entity.objects[i]
 
             e:update()
+
+            -- do collisions
 
             -- bullets should only travel so far
             if (e:is(bullet) and e.distance > 130) del(entity.objects, e)
