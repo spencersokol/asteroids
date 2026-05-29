@@ -4,16 +4,21 @@ I wanna learn PICO-8, and my spouse's favorite game is Asteroids, so here we go.
 
 ## TODO
 
+- ~~Add debugging utils~~
 - ~~Add OOP for scenes and entities~~
 - ~~Add ship~~
 - ~~Add ship movement and rotation~~
 - ~~Add bullets~~
-- Add asteroids
-- Add various size asteroids
+- ~~Add asteroids~~
+- ~~Add various size asteroids~~
 - Add collisions
 - ~~Add game state~~
 - Add scoring
 - Add player lives
+- Add UFOs
+- Add ship destruction animation
+- Add asteroid destruction animation
+- Add sfx
 - Add rear booster fire animation while ship moving
 - Add starfield animation
 - Make good title screen

@@ -21,7 +21,8 @@ ship = entity:extend({
     rotation = 0,
 
     -- movement
-    velocity = { x = 0, y = 0 },
+    x_velocity = 0,
+    y_velocity = 0,
 
     calculate_border_points = function(_ENV)
 
@@ -49,8 +50,8 @@ ship = entity:extend({
 
         rotation = 0
 
-        velocity.x = 0
-        velocity.y = 0
+        x_velocity = 0
+        y_velocity = 0
 
         _ENV:calculate_border_points()
 
@@ -62,11 +63,11 @@ ship = entity:extend({
 
         -- handle movement input
         if btn(2) then
-            velocity.x = cos(rotation) * speed
-            velocity.y = sin(rotation) * speed
+            x_velocity = cos(rotation) * speed
+            y_velocity = sin(rotation) * speed
         else -- slow down over time
-            velocity.x *= friction
-            velocity.y *= friction
+            x_velocity *= friction
+            y_velocity *= friction
         end
 
         -- handle rotation input
@@ -95,8 +96,8 @@ ship = entity:extend({
         end
 
         -- update position
-        x += velocity.x
-        y += velocity.y
+        x += x_velocity
+        y += y_velocity
 
         -- don't go off screen
         if (x > 128) x = 0

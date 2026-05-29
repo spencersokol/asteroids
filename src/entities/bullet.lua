@@ -11,15 +11,16 @@ bullet = entity:extend({
 
     -- movement
     speed = 5,
-    velocity = { x = 0, y = 0 },
+    x_velocity = 0,
+    y_velocity = 0,
     distance = 0,
 
     init = function(_ENV)
 
         entity.init(_ENV)
 
-        velocity.x = cos(rotation) * speed
-        velocity.y = sin(rotation) * speed
+        x_velocity = cos(rotation) * speed
+        y_velocity = sin(rotation) * speed
 
     end,
 
@@ -28,8 +29,8 @@ bullet = entity:extend({
         entity.update(_ENV)
 
         -- update position
-        x += velocity.x
-        y += velocity.y
+        x += x_velocity
+        y += y_velocity
 
         -- don't go off screen
         if (x > 128) x = 0

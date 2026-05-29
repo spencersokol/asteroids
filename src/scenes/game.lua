@@ -1,7 +1,16 @@
 game = scene:extend({
 
     init = function(_ENV)
+
+        local asteroid_types = { small_asteroid, asteroid, large_asteroid }
+
         ship:new()
+
+        for i = 1, 7 do
+            local asteroid_type = rnd(asteroid_types)
+            asteroid_type:new()
+        end
+
     end,
 
     update = function(_ENV)
@@ -31,7 +40,6 @@ game = scene:extend({
     draw = function(_ENV)
         cls()
 
-        print(#entity.objects)
         -- decide on what objects to actually draw first
         -- this just tries to draw everything
         for e in all(entity.objects) do

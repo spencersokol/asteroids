@@ -5,6 +5,7 @@ __lua__
 #include src/main.lua
 
 #include src/utils/globals.lua
+#include src/utils/debug.lua
 #include src/utils/class.lua
 #include src/utils/gameobject.lua
 #include src/utils/gamestate.lua
@@ -12,6 +13,7 @@ __lua__
 #include src/entities/entity.lua
 #include src/entities/ship.lua
 #include src/entities/bullet.lua
+#include src/entities/asteroid.lua
 
 #include src/scenes/scene.lua
 #include src/scenes/title.lua
