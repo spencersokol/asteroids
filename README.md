@@ -11,8 +11,12 @@ I wanna learn PICO-8, and my spouse's favorite game is Asteroids, so here we go.
 - ~~Add bullets~~
 - ~~Add asteroids~~
 - ~~Add various size asteroids~~
-- Add collisions
+- ~~Add asteroid bullet collision~~
+- Add asteroid break apart
+- ~~Add asteroid ship collision~~
+- Add line in circle collision
 - ~~Add game state~~
+- Add asteroid spawning over time to increase difficulty
 - Add scoring
 - Add player lives
 - Add UFOs
@@ -28,3 +32,4 @@ I wanna learn PICO-8, and my spouse's favorite game is Asteroids, so here we go.
 
 - [Kevin Thompson](https://github.com/kevinthompson) - snagged a lot of OO concepts for PICO-8 from them
 - [Net Ninja Asteroids](https://youtube.com/playlist?list=PL4cUxeGkcC9iO8ai6LU0s6aHAaWP4RAkF&si=9SBAqG52NgAc4gg6) - Has some usable ship/player math descriptions
+- [Jeffrey Thompson Collision Detection](https://www.jeffreythompson.org/collision-detection/)

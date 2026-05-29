@@ -46,4 +46,12 @@ bullet = entity:extend({
         pset(x, y)
     end,
 
+    destroy = function(_ENV)
+        
+        entity.destroy(_ENV)
+
+        gamestate.bullet_count -= 1
+
+    end
+
 })
