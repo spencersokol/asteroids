@@ -14,10 +14,12 @@ I wanna learn PICO-8, and my spouse's favorite game is Asteroids, so here we go.
 - ~~Add asteroid bullet collision~~
 - ~~Add asteroid ship collision~~
 - ~~Add game state~~
-- Add scoring
+- ~~Add scoring~~
+- ~~Fix asteroids spawning on screen (they should start offscreen and come in)~~
+- Add larger asteroids breaking up to smaller ones
 - Add player lives
 - Add game over screen
-- Add asteroid spawning over time to increase difficulty
+- ~~Add asteroid spawning over time to increase difficulty~~
 - Add UFOs
 - Add ship destruction animation
 - Add asteroid destruction animation

@@ -111,9 +111,9 @@ ship = entity:extend({
 
     draw = function(_ENV) 
 
-        line(front.x, front.y, rear_left.x, rear_left.y)
-        line(front.x, front.y, rear_right.x, rear_right.y)
-        line(rear_left.x, rear_left.y, rear_right.x, rear_right.y)
+        line(front.x, front.y, rear_left.x, rear_left.y, 7)
+        line(front.x, front.y, rear_right.x, rear_right.y, 7)
+        line(rear_left.x, rear_left.y, rear_right.x, rear_right.y, 7)
         
     end,
 

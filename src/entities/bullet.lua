@@ -43,7 +43,7 @@ bullet = entity:extend({
     end,
 
     draw = function(_ENV)
-        pset(x, y)
+        pset(x, y, 7)
     end,
 
     destroy = function(_ENV)

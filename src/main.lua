@@ -1,3 +1,5 @@
+if (debug) enable_debug()
+
 function _update()
     if (scene.current) scene.current:update()
 end

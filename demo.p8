@@ -2,8 +2,6 @@ pico-8 cartridge // http://www.pico-8.com
 version 43
 __lua__
 
-#include src/main.lua
-
 #include src/utils/globals.lua
 #include src/utils/debug.lua
 #include src/utils/class.lua
@@ -19,6 +17,8 @@ __lua__
 #include src/scenes/scene.lua
 #include src/scenes/title.lua
 #include src/scenes/game.lua
+
+#include src/main.lua
 
 function _init()
     scene:load(title)    

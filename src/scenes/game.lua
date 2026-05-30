@@ -1,18 +1,12 @@
 game = scene:extend({
 
     player = {},
-    starting_asteroids = 7,
+    game = {},
 
     init = function(_ENV)
 
-        local asteroid_types = { small_asteroid, asteroid, large_asteroid }
-
+        game = gamestate:new()
         player = ship:new()
-
-        for i = 1, starting_asteroids do
-            local asteroid_type = rnd(asteroid_types)
-            asteroid_type:new()
-        end
 
     end,
 
@@ -38,14 +32,22 @@ game = scene:extend({
         for a in all(asteroids) do
 
             if asteroid_hits_player(_ENV, a) then
+
+                log("player died!")
+                log("player: " .. player.x .. "," .. player.y)
+                log("asteroid: " .. a.x .. "," .. a.y .. " " .. a.width)
+                a.is_killer = true
+
                 --do lose life or game over
-                player:destroy(_ENV)
+                game.player_dead = true
+                sfx(0)
             end
 
             for b in all(bullets) do
                 if bullet_hits_asteroid(_ENV, b, a) then
                     a:destroy(_ENV)
                     b:destroy(_ENV)
+                    game.score += a.score
                 end
             end
         end
@@ -59,6 +61,8 @@ game = scene:extend({
 
         end
 
+        game:update()
+
         if btnp(5) then
             scene:load(title)
         end
@@ -70,13 +74,19 @@ game = scene:extend({
         -- decide on what objects to actually draw first
         -- this just tries to draw everything
         for e in all(entity.objects) do
-            e:draw()
+            if (e:is(ship)) then
+                if (not game.player_dead) e:draw()
+            else
+                e:draw()
+            end
         end
+
+        print("score: " .. game.score, 1, 1, 7)
 
     end,
 
     destroy = function(_ENV)
-        gamestate:destroy()
+        game:destroy()
     end,
 
     bullet_hits_asteroid = function(_ENV, bullet, asteroid)
@@ -85,6 +95,8 @@ game = scene:extend({
     end,
 
     asteroid_hits_player = function(_ENV, asteroid)
+
+        if (game.player_dead) return false
 
         -- add a buffer here to be a little forgiving
         local radius = asteroid.width - 0.5
@@ -96,6 +108,7 @@ game = scene:extend({
 
         if (front or rear_left or rear_right) return true
 
+        --[[
         -- check the lines
         local side1 = line_in_circle(
             player.front.x,
@@ -126,6 +139,7 @@ game = scene:extend({
         )
         
         if (side1 or side2 or side3) return true
+        ]]
 
         return false
 
