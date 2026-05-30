@@ -13,6 +13,8 @@ __lua__
 #include src/entities/ship.lua
 #include src/entities/bullet.lua
 #include src/entities/asteroid.lua
+#include src/entities/asteroid_medium.lua
+#include src/entities/asteroid_large.lua
 
 #include src/scenes/scene.lua
 #include src/scenes/title.lua

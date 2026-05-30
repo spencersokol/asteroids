@@ -11,7 +11,7 @@ gamestate = gameobject:extend({
     should_spawn_asteroids = function(_ENV)
         
         if (player_dead) return
-        
+
         if (score < 1000) then
             return (6 == seconds)
         elseif (score < 5000) then
@@ -42,7 +42,7 @@ gamestate = gameobject:extend({
 
         spawn_count = spawn_count or _ENV:spawn_count()
 
-        local asteroid_types = { small_asteroid, asteroid, large_asteroid }
+        local asteroid_types = { asteroid, medium_asteroid, large_asteroid }
 
         log("adding " .. spawn_count .. " asteroids")
 

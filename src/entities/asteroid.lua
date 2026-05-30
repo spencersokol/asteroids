@@ -2,11 +2,11 @@ asteroid = entity:extend({
 
     label = "asteroid",
 
-    score = 50,
+    score = 100,
+    width = 4,
+    variation = 2,
     x = 0,
     y = 0,
-    width = 7,
-    variation = 3,
     buffer = 0,
     points = {},
     min_points = 8,
@@ -20,6 +20,9 @@ asteroid = entity:extend({
 
     find_start = function(_ENV)
 
+        -- start position provided
+        if (x > 0) return
+            
         -- probably a better way to do this whole thing
 
         -- center screen
@@ -58,7 +61,7 @@ asteroid = entity:extend({
 
         -- generate random starting info, with position away from ship
         speed = rnd(0.75) + 0.25
-        rotation = rnd()
+        rotation = rnd(1)
         spin_speed = rnd(0.015)
 
         buffer = width + variation + 10
@@ -131,16 +134,4 @@ asteroid = entity:extend({
         end
     end,
 
-})
-
-small_asteroid = asteroid:extend({
-    score = 100,
-    width = 4,
-    variation = 2
-})
-
-large_asteroid = asteroid:extend({
-    score = 20,
-    width = 10,
-    variation = 5
 })
