@@ -33,7 +33,7 @@ class = setmetatable({
     end,
 
     is = function(_ENV, klass)
-        return _ENV.class == klass or count(ancestors, klass) > 0
+        return _ENV.class == klass -- or count(ancestors, klass) > 0
     end,
 
     init = _noop

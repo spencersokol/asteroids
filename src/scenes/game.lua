@@ -1,11 +1,11 @@
 game = scene:extend({
 
     player = {},
-    game = {},
+    state = {},
 
     init = function(_ENV)
 
-        game = gamestate:new()
+        state = gamestate:new()
         player = ship:new()
 
     end,
@@ -39,7 +39,7 @@ game = scene:extend({
                 a.is_killer = true
 
                 --do lose life or game over
-                game.player_dead = true
+                state.player_dead = true
                 sfx(0)
             end
 
@@ -47,7 +47,7 @@ game = scene:extend({
                 if bullet_hits_asteroid(_ENV, b, a) then
                     a:destroy(_ENV)
                     b:destroy(_ENV)
-                    game.score += a.score
+                    state.score += a.score
                 end
             end
         end
@@ -61,11 +61,12 @@ game = scene:extend({
 
         end
 
-        game:update()
+        state:update()
 
         if btnp(5) then
             scene:load(title)
         end
+        
     end,
 
     draw = function(_ENV)
@@ -75,18 +76,18 @@ game = scene:extend({
         -- this just tries to draw everything
         for e in all(entity.objects) do
             if (e:is(ship)) then
-                if (not game.player_dead) e:draw()
+                if (not state.player_dead) e:draw()
             else
                 e:draw()
             end
         end
 
-        print("score: " .. game.score, 1, 1, 7)
+        print("score: " .. state.score, 1, 1, 7)
 
     end,
 
     destroy = function(_ENV)
-        game:destroy()
+        state:destroy()
     end,
 
     bullet_hits_asteroid = function(_ENV, bullet, asteroid)
@@ -96,7 +97,7 @@ game = scene:extend({
 
     asteroid_hits_player = function(_ENV, asteroid)
 
-        if (game.player_dead) return false
+        if (state.player_dead) return false
 
         -- add a buffer here to be a little forgiving
         local radius = asteroid.width - 0.5
