@@ -59,7 +59,7 @@ asteroid = entity:extend({
 
         points = {}
 
-        -- generate random starting info, with position away from ship
+        -- generate random starting info, with position away from player
         speed = rnd(0.75) + 0.25
         rotation = rnd(1)
         spin_speed = rnd(0.015)

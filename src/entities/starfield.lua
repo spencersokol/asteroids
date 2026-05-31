@@ -3,7 +3,7 @@ starfield = entity:extend({
     -- "constants"
     label = "starfield",
 
-    count = 0,
+    star_count = 0,
 
     init = function(_ENV)
 
@@ -11,9 +11,9 @@ starfield = entity:extend({
 
         stars = {}
 
-        count = rnd(40) + 20
+        star_count = rnd(40) + 20
 
-        for i = 1, count do
+        for i = 1, star_count do
             add(stars, star:new())
         end
 

@@ -13,6 +13,7 @@ __lua__
 #include src/entities/starfield.lua
 #include src/entities/star.lua
 #include src/entities/ship.lua
+#include src/entities/player_ship.lua
 #include src/entities/bullet.lua
 #include src/entities/asteroid.lua
 #include src/entities/asteroid_medium.lua

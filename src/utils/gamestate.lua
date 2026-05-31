@@ -1,8 +1,6 @@
 gamestate = gameobject:extend({
 
     player_dead = false,
-    bullet_count = 0,
-    bullet_max = 3,
     lives = 3,
     score = 0,
     frames = 0,

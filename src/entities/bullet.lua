@@ -50,8 +50,6 @@ bullet = entity:extend({
         
         entity.destroy(_ENV)
 
-        gamestate.bullet_count -= 1
-
     end
 
 })
