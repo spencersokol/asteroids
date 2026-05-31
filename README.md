@@ -17,7 +17,7 @@ I wanna learn PICO-8, and my spouse's favorite game is Asteroids, so here we go.
 - ~~Add scoring~~
 - ~~Fix asteroids spawning on screen (they should start offscreen and come in)~~
 - ~~Add larger asteroids breaking up to smaller ones~~
-- Fix scene switching between game and title (game sticks around)
+- ~~Fix scene switching between game and title (game sticks around)~~
 - Add player lives
 - Add game over screen
 - ~~Add asteroid spawning over time to increase difficulty~~

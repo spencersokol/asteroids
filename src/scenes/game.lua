@@ -66,7 +66,7 @@ game = scene:extend({
         if btnp(5) then
             scene:load(title)
         end
-        
+
     end,
 
     draw = function(_ENV)
@@ -87,6 +87,7 @@ game = scene:extend({
     end,
 
     destroy = function(_ENV)
+        scene.destroy(_ENV)
         state:destroy()
     end,
 

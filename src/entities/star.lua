@@ -3,7 +3,7 @@ star = entity:extend({
     -- "constants"
     label = "star",
 
-    colors = {1, 5, 13},
+    colors = {0, 1, 5, 13},
 
     x = 0,
     y = 0,
