@@ -46,10 +46,6 @@ player_ship = ship:extend({
         _ENV:reset()
         _ENV:calculate_border_points()
 
-        log("player front: " .. front.x .. "," .. front.y)
-        log("player rear left: " .. rear_left.x .. "," .. rear_left.y)
-        log("player rear right: " .. rear_right.x .. "," .. rear_right.y)
-
     end,
 
     update = function(_ENV)

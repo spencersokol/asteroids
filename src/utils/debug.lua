@@ -1,9 +1,20 @@
 log = _noop
+status = _noop
 
 function enable_debug()
 
+    _g.status_message = ""
+
     log = function(any, overwrite)
         printh(tostr(any), logfile or "log", overwrite)
+    end
+
+    status = function(any)
+
+        _g.status_message = tostr(any)
+
+        rectfill(0, 121, 128, 128, 8)
+        print(tostr(any), 1, 122, 7)
     end
 
     local _ad = asteroid.draw

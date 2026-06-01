@@ -23,9 +23,6 @@ asteroid = entity:extend({
         local x_multiplier = ((64 + buffer)/x_velocity)
         local y_multiplier = ((64 + buffer)/y_velocity)
         
-        -- log("x_multiplier: " .. x_multiplier)
-        -- log("y_multiplier: " .. y_multiplier)
-
         -- get the starting point by using the smallest multiplier
         if (abs(x_multiplier) < abs(y_multiplier)) then
             x += flr(x_multiplier * x_velocity) * x_sign
@@ -70,10 +67,6 @@ asteroid = entity:extend({
         y_velocity = sin(rotation) * speed
 
         _ENV:find_start()
-
-        log("asteroid.position: " .. x .. "," .. y)
-        log("asteroid.rotation: " .. rotation)
-        log("asteroid.velocity: " .. x_velocity .. "," .. y_velocity)
 
         -- generate random number of points based on size
         local num_points = flr(rnd(5)) + radius

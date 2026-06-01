@@ -12,8 +12,6 @@ medium_asteroid = asteroid:extend({
 
         if (rnd(1) > 0.5) then
 
-            log("asteroid broke")
-
             asteroid:new({ x = x, y = y })
 
         else 

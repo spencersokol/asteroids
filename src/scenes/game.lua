@@ -16,7 +16,6 @@ game = scene:extend({
 
         for i = 1, 3 do
             local s = ship:new({ x = (128 - (i * 6)), y = 6 })
-            log("life ship: " .. s.x .. "," .. s.y)
             add(ships, s)
         end
 
@@ -31,7 +30,6 @@ game = scene:extend({
         if (frames > 30) then
             frames = 0
             seconds += 1
-            -- log("gamestate: 1 second elapsed")
         end
 
         if (should_spawn_asteroids(_ENV)) spawn_asteroids(_ENV)
@@ -54,19 +52,16 @@ game = scene:extend({
 
         if (player.dead and (#ships > 0)) try_spawn_player(_ENV, asteroids)
 
-        log("--- game stats ---")
-        log("asteroids: " .. #asteroids)
-        log("bullets: " .. #bullets .. " of " .. player.bullet_max)
-        log("---")
-
         -- check collisions
         for a in all(asteroids) do
 
             if asteroid_hits_player(_ENV, a) then
 
-                log("player died!")
-                log("player: " .. player.x .. "," .. player.y)
-                log("asteroid: " .. a.x .. "," .. a.y .. " " .. a.radius)
+                local msg = "p: " .. flr(player.x) .. "," .. flr(player.y) .. " : "
+                msg = msg .. "a: " .. flr(a.x) .. "," .. flr(a.y) .. " " .. a.radius
+
+                status(msg)
+                
                 a.is_killer = true
 
                 lose_life(_ENV)
@@ -75,7 +70,6 @@ game = scene:extend({
 
             for b in all(bullets) do
                 if bullet_hits_asteroid(_ENV, b, a) then
-                    log("bullet hit asteroid")
                     a:destroy()
                     b:destroy()
                     score += a.score
@@ -152,14 +146,19 @@ game = scene:extend({
         -- wait two full seconds
         if (not (player.frames_since_death > 60)) return
 
+        -- after 4 seconds start dropping asteroids every two seconds if player hasn't spawned
+        if ((player.frames_since_death > 120) and (0 == (player.frames_since_death % 60))) then
+            local a = asteroids[#asteroids]
+            a:destroy()
+            del(asteroids, a)
+        end
+
         local buffer = 20
 
         -- give player a buffer in all directions
         for a in all(asteroids) do
             if ((a.x > (64 - buffer) and a.x < (64 + buffer)) and (a.y > (64 - buffer) and a.y < (64 + buffer))) return
         end
-
-        log("player spawned")
 
         player:reset()
 
@@ -175,12 +174,6 @@ game = scene:extend({
 
     bullet_hits_asteroid = function(_ENV, b, a)
         -- use point/circle collision detection
-
-        log("--- check bullet collision ---")
-        log("bullet: " .. b.x .. "," .. b.y)
-        log("asteroid: " .. a.x .. "," .. a.y .. " " .. a.radius)
-        log("---")
-
         return point_in_circle(b.x, b.y, a.x, a.y, a.radius)
     end,
 
@@ -190,13 +183,6 @@ game = scene:extend({
 
         -- add a buffer here to be a little forgiving
         local radius = a.radius - a.hit_buffer
-
-        log("--- check player collision ---")
-        log("player front: " .. player.front.x .. "," .. player.front.y)
-        log("player rear left: " .. player.rear_left.x .. "," .. player.rear_left.y)
-        log("player rear right: " .. player.rear_right.x .. "," .. player.rear_right.y)
-        log("asteroid: " .. a.x .. "," .. a.y .. " " .. radius)
-        log("---")
 
         -- check the points first
         local front = point_in_circle(player.front.x, player.front.y, a.x, a.y, radius)
@@ -277,8 +263,6 @@ game = scene:extend({
         c = c or spawn_count(_ENV)
 
         local asteroid_types = { asteroid, medium_asteroid, large_asteroid }
-
-        log("adding " .. c .. " asteroids")
 
         for i = 1, c do
             local asteroid_type = rnd(asteroid_types)

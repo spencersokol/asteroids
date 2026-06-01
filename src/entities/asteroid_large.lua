@@ -12,8 +12,6 @@ large_asteroid = asteroid:extend({
 
         if (rnd(1) > 0.1) then
 
-            log("asteroid broke at " .. x .. "," .. y)
-
             -- small or medium asteroid
             local asteroid_type = rnd({ asteroid, medium_asteroid })
 
