@@ -2,7 +2,7 @@
 _g = _ENV
 
 -- debug
-debug = true
+debug = false
 
 -- empty function
 _noop = function() end

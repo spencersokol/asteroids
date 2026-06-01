@@ -9,6 +9,10 @@ function point_in_circle(x, y, cx, cy, radius)
 
     local x_distance = x - cx
     local y_distance = y - cy
+
+    -- optimization to only check close objects
+    if ((x_distance > 10) or (y_distance > 10)) return
+
     local distance = sqrt((x_distance * x_distance) + (y_distance * y_distance))
 
     return (distance <= radius)
