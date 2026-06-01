@@ -3,8 +3,6 @@ starfield = entity:extend({
     -- "constants"
     label = "starfield",
 
-    star_count = 0,
-
     init = function(_ENV)
 
         entity.init(_ENV)

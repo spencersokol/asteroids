@@ -1,18 +1,6 @@
 ship = entity:extend({
 
-    -- "constants"
     label = "ship",
-
-    -- position
-    --[[
-    x = 0,
-    y = 0,
-    front = { x = 0, y = 0 },
-    rear = { x = 0, y = 0 },
-    rear_left = { x = 0, y = 0 },
-    rear_right = { x = 0, y = 0 },
-    rotation = 0,
-    ]]
 
     calculate_border_points = function(_ENV)
 
@@ -44,17 +32,17 @@ ship = entity:extend({
         x = x or 64
         y = y or 64
 
-        front = {}
-        rear = {}
-        rear_left = {}
-        rear_right = {}
-        
+        front = { x = 0, y = 0 }
+        rear = { x = 0, y = 0 }
+        rear_left = { x = 0, y = 0 }
+        rear_right = { x = 0, y = 0 }
+
         _ENV:calculate_border_points()
 
     end,
 
     draw = function(_ENV) 
-log("DRAWING SHIP: " .. front.x .. "," .. front.y)
+
         line(front.x, front.y, rear_left.x, rear_left.y, 7)
         line(front.x, front.y, rear_right.x, rear_right.y, 7)
         line(rear_left.x, rear_left.y, rear_right.x, rear_right.y, 7)

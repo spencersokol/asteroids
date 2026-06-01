@@ -3,24 +3,20 @@ bullet = entity:extend({
     -- "constants"
     label = "bullet",
 
-
-    -- position
-    x = 0,
-    y = 0,
-    rotation = 0,
-
-    -- movement
-    speed = 5,
-    x_velocity = 0,
-    y_velocity = 0,
-    distance = 0,
-
     init = function(_ENV)
 
         entity.init(_ENV)
 
+        -- position
+        x = x or 0
+        y = y or 0
+        rotation = rotation or 0
+
+        -- movement
+        speed = 5
         x_velocity = cos(rotation) * speed
         y_velocity = sin(rotation) * speed
+        distance = 0
 
     end,
 

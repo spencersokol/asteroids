@@ -6,7 +6,6 @@ __lua__
 #include src/utils/debug.lua
 #include src/utils/class.lua
 #include src/utils/gameobject.lua
-#include src/utils/gamestate.lua
 #include src/utils/2dcollision.lua
 
 #include src/entities/entity.lua

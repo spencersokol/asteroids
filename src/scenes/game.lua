@@ -1,25 +1,40 @@
 game = scene:extend({
 
-    player = {},
-    state = {},
-    ships = {},
-
     init = function(_ENV)
+
+        player = {}
+        ships = {}
+
+        frames = 0
+        seconds = 0 -- since last asteroid spawn
+
+        score = 0
 
         starfield:new()
 
-        state = gamestate:new()
         player = player_ship:new()
 
-        for i = 1, state.lives do
+        for i = 1, 3 do
             local s = ship:new({ x = (128 - (i * 6)), y = 6 })
             log("life ship: " .. s.x .. "," .. s.y)
             add(ships, s)
         end
 
+        spawn_asteroids(_ENV, 7)
+
     end,
 
     update = function(_ENV)
+
+        frames += 1
+        
+        if (frames > 30) then
+            frames = 0
+            seconds += 1
+            -- log("gamestate: 1 second elapsed")
+        end
+
+        if (should_spawn_asteroids(_ENV)) spawn_asteroids(_ENV)
 
         local asteroids = {}
         local bullets = {}
@@ -37,9 +52,11 @@ game = scene:extend({
 
         end
 
+        if (player.dead and (#ships > 0)) try_spawn_player(_ENV, asteroids)
+
         log("--- game stats ---")
         log("asteroids: " .. #asteroids)
-        log("bullets: (" .. #bullets .. "/" .. state.bullet_count .. ") of " .. state.bullet_max)
+        log("bullets: (" .. #bullets .. "/" .. player.bullet_count .. ") of " .. player.bullet_max)
         log("---")
 
         -- check collisions
@@ -52,13 +69,8 @@ game = scene:extend({
                 log("asteroid: " .. a.x .. "," .. a.y .. " " .. a.width)
                 a.is_killer = true
 
-                --do lose life or game over
-                local s = ships[state.lives]
-                del(ships, s)
-                s:destroy()
-                state.player_dead = true
-                state.lives -= 1
-                sfx(0)
+                lose_life(_ENV)
+
             end
 
             for b in all(bullets) do
@@ -67,7 +79,7 @@ game = scene:extend({
                     a:destroy(_ENV)
                     b:destroy(_ENV)
                     player.bullet_count -= 1
-                    state.score += a.score
+                    score += a.score
                 end
             end
         end
@@ -82,9 +94,7 @@ game = scene:extend({
 
         end
 
-        state:update()
-
-        if btnp(5) then
+        if (#ships == 0) and btnp(5) then
             scene:load(title)
         end
 
@@ -96,20 +106,47 @@ game = scene:extend({
         -- decide on what objects to actually draw first
         -- this just tries to draw everything
         for e in all(entity.objects) do
-            if (e:is(player_ship)) then
-                if (not state.player_dead) e:draw()
-            else
-                e:draw()
-            end
+            e:draw()
         end
 
-        print("score: " .. state.score, 1, 1, 7)
+        print("score: " .. score, 1, 1, 7)
+
+        if (#ships == 0) then
+            print("game over", 50, 64, 7)
+        end
 
     end,
 
     destroy = function(_ENV)
         scene.destroy(_ENV)
-        state:destroy()
+    end,
+
+    lose_life = function(_ENV)
+
+        local s = ships[#ships]
+        del(ships, s)
+        s:destroy()
+        player.dead = true
+        sfx(0)
+                
+    end,
+
+    try_spawn_player = function(_ENV, asteroids)
+
+        -- wait two full seconds
+        if (not (player.frames_since_death > 60)) return
+
+        local buffer = 20
+
+        -- give player a buffer in all directions
+        for a in all(asteroids) do
+            if ((a.x > (64 - buffer) and a.x < (64 + buffer)) and (a.y > (64 - buffer) and a.y < (64 + buffer))) return
+        end
+
+        log("player spawned")
+
+        player:reset()
+
     end,
 
     bullet_hits_asteroid = function(_ENV, b, a)
@@ -125,10 +162,10 @@ game = scene:extend({
 
     asteroid_hits_player = function(_ENV, a)
 
-        if (state.player_dead) return false
+        if (player.dead) return false
 
         -- add a buffer here to be a little forgiving
-        local radius = asteroid.width - 0.5
+        local radius = a.width - 0.5
 
         log("--- check player collision ---")
         log("player front: " .. player.front.x .. "," .. player.front.y)
@@ -151,8 +188,8 @@ game = scene:extend({
             player.front.y,
             player.rear_left.x,
             player.rear_left.y,
-            asteroid.x,
-            asteroid.y,
+            a.x,
+            a.y,
             radius
         )
         local side2 = line_in_circle(
@@ -160,8 +197,8 @@ game = scene:extend({
             player.front.y,
             player.rear_right.x,
             player.rear_right.y,
-            asteroid.x,
-            asteroid.y,
+            a.x,
+            a.y,
             radius
         )
         local side3 = line_in_circle(
@@ -169,8 +206,8 @@ game = scene:extend({
             player.rear_left.y,
             player.rear_right.x,
             player.rear_right.y,
-            asteroid.x,
-            asteroid.y,
+            a.x,
+            a.y,
             radius
         )
         
@@ -178,6 +215,53 @@ game = scene:extend({
         ]]
 
         return false
+
+    end,
+
+    should_spawn_asteroids = function(_ENV)
+        
+        if (player.dead) return
+
+        if (score < 1000) then
+            return (6 == seconds)
+        elseif (score < 5000) then
+            return (4 == seconds)
+        elseif (score < 10000) then
+            return (3 == seconds)
+        end
+
+        return (2 == seconds)
+
+    end,
+
+    spawn_count = function(_ENV)
+
+        if (score < 1000) then
+            return flr(rnd(2)) + 1
+        elseif (score < 5000) then
+            return flr(rnd(4)) + 1
+        elseif (score < 10000) then
+            return flr(rnd(6)) + 1
+        end
+
+        return flr(rnd(8))
+
+    end,
+
+    spawn_asteroids = function(_ENV, c)
+
+        c = c or spawn_count(_ENV)
+
+        local asteroid_types = { asteroid, medium_asteroid, large_asteroid }
+
+        log("adding " .. c .. " asteroids")
+
+        for i = 1, c do
+            local asteroid_type = rnd(asteroid_types)
+            asteroid_type:new()
+        end
+
+        seconds = 0
 
     end
 

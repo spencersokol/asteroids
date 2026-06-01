@@ -19,8 +19,10 @@ I wanna learn PICO-8, and my spouse's favorite game is Asteroids, so here we go.
 - ~~Add larger asteroids breaking up to smaller ones~~
 - ~~Fix scene switching between game and title (game sticks around)~~
 - ~~Add player lives~~
-- Add game over screen
+- ~~Add game over screen~~
 - ~~Add asteroid spawning over time to increase difficulty~~
+- Fix asteroid static vs instance properties
+- Fix point in circle collision
 - Add UFOs
 - Add ship destruction animation
 - Add asteroid destruction animation

@@ -3,24 +3,29 @@ player_ship = ship:extend({
     -- "constants"
     label = "player_ship",
 
-    -- bullets
-    bullet_count = 0,
-    bullet_max = 3,
+    reset = function(_ENV)
 
-    friction = 0.92,
-    speed = 1.5,
-    rotation_speed = 0.03,
+        dead = false
+        frames_since_death = 0
 
-    -- movement
-    x_velocity = 0,
-    y_velocity = 0,
+        x = 64
+        y = 64
+
+        x_velocity = 0
+        y_velocity = 0
+
+        front = { x = 0, y = 0 }
+        rear = { x = 0, y = 0 }
+        rear_left = { x = 0, y = 0 }
+        rear_right = { x = 0, y = 0 }
+        
+    end,
 
     init = function(_ENV)
 
         entity.init(_ENV)
 
-        x = 64
-        y = 64
+        frames_since_death = 0
 
         front_distance = 5
         rear_distance = 3
@@ -28,14 +33,16 @@ player_ship = ship:extend({
 
         rotation = 0
 
-        x_velocity = 0
-        y_velocity = 0
+        bullet_count = 0
+        bullet_max = 3
 
-        front = {}
-        rear = {}
-        rear_left = {}
-        rear_right = {}
-        
+        friction = 0.92
+        speed = 1.5
+        rotation_speed = 0.03
+
+        dead = false
+
+        _ENV:reset()
         _ENV:calculate_border_points()
 
         log("player front: " .. front.x .. "," .. front.y)
@@ -47,6 +54,11 @@ player_ship = ship:extend({
     update = function(_ENV)
         
         entity.update(_ENV)
+
+        if (dead) then
+            frames_since_death += 1
+            return
+        end
 
         -- handle movement input
         if btn(2) then
@@ -95,5 +107,9 @@ player_ship = ship:extend({
         _ENV:calculate_border_points()
 
     end,
+
+    draw = function(_ENV)
+        if (not dead) ship.draw(_ENV)
+    end
 
 })

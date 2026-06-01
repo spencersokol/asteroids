@@ -3,17 +3,11 @@ star = entity:extend({
     -- "constants"
     label = "star",
 
-    colors = {0, 1, 5, 13},
-
-    x = 0,
-    y = 0,
-    clr = 0,
-    frames = 0,
-    interval = 0,
-
     init = function(_ENV)
 
         entity.init(_ENV)
+
+        colors = {0, 1, 5, 13}
 
         x = flr(rnd(127))
         y = flr(rnd(127))
