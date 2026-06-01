@@ -56,7 +56,7 @@ game = scene:extend({
 
         log("--- game stats ---")
         log("asteroids: " .. #asteroids)
-        log("bullets: (" .. #bullets .. "/" .. player.bullet_count .. ") of " .. player.bullet_max)
+        log("bullets: " .. #bullets .. " of " .. player.bullet_max)
         log("---")
 
         -- check collisions
@@ -78,7 +78,6 @@ game = scene:extend({
                     log("bullet hit asteroid")
                     a:destroy()
                     b:destroy()
-                    player.bullet_count -= 1
                     score += a.score
                 end
             end
@@ -88,7 +87,6 @@ game = scene:extend({
         for b in all(bullets) do
             
             if (b.distance > 130) then
-                player.bullet_count -= 1
                 b:destroy()
             end
 

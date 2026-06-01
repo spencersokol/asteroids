@@ -35,7 +35,6 @@ player_ship = ship:extend({
 
         rotation = 0
 
-        bullet_count = 0
         bullet_max = 3
 
         friction = 0.92
@@ -83,6 +82,12 @@ player_ship = ship:extend({
         -- handle fire
         if btnp(4) then
 
+            local bullet_count = 0
+
+            for e in all(entity.objects) do
+                if (e:is(bullet)) bullet_count += 1
+            end
+
             if (bullet_count < bullet_max) then
 
                 bullet:new({
@@ -91,8 +96,6 @@ player_ship = ship:extend({
                     rotation = rotation
                 })
 
-                bullet_count += 1
-                
             end
 
         end

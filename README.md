@@ -33,6 +33,7 @@ I wanna learn PICO-8, and my spouse's favorite game is Asteroids, so here we go.
 - Add UFOs
 - Fix starfield so stars can't be super close to each other
 - Add line in circle collision
+- Optimize collision detection
 
 ### Resources
 
