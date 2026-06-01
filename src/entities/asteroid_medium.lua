@@ -10,6 +10,8 @@ medium_asteroid = asteroid:extend({
 
         entity.destroy(_ENV)
 
+        sfx(2)
+        
         if (rnd(1) > 0.5) then
 
             asteroid:new({ x = x, y = y })

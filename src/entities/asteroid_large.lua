@@ -10,6 +10,8 @@ large_asteroid = asteroid:extend({
 
         entity.destroy(_ENV)
 
+        sfx(2)
+        
         if (rnd(1) > 0.1) then
 
             -- small or medium asteroid

@@ -121,7 +121,7 @@ game = scene:extend({
         print("score: " .. score, 1, 1, 7)
 
         if (#ships == 0) then
-            print("game over", 50, 64, 7)
+            print("\#0game over", 50, 64, 7)
         end
 
     end,
@@ -135,9 +135,7 @@ game = scene:extend({
         local s = ships[#ships]
         del(ships, s)
         s:destroy()
-        player.dead = true
-        explosion:new({ x = player.x, y = player.y })
-        sfx(0)
+        player:kill()
                 
     end,
 

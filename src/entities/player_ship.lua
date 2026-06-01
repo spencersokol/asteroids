@@ -23,6 +23,19 @@ player_ship = ship:extend({
         
     end,
 
+    kill = function(_ENV)
+        
+        sfx(0)
+
+        dead = true
+
+        explosion:new({ 
+            x = x,
+            y = y 
+        })
+
+    end,
+
     init = function(_ENV)
 
         entity.init(_ENV)

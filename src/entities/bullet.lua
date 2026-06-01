@@ -7,6 +7,8 @@ bullet = entity:extend({
 
         entity.init(_ENV)
 
+        sfx(1)
+        
         -- position
         x = x or 0
         y = y or 0

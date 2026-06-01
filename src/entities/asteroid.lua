@@ -131,6 +131,7 @@ asteroid = entity:extend({
 
         entity.destroy(_ENV)
 
+        sfx(2)
         explosion:new({ x = x, y = y })
 
     end
