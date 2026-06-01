@@ -11,9 +11,9 @@ function enable_debug()
     asteroid.draw = function(_ENV)
 
         if (_ENV.is_killer) then
-            circfill(_ENV.x, _ENV.y, _ENV.width, 8)
+            circfill(_ENV.x, _ENV.y, _ENV.radius - _ENV.hit_buffer, 8)
         else
-            circ(_ENV.x, _ENV.y, _ENV.width, 4)
+            circ(_ENV.x, _ENV.y, _ENV.radius - _ENV.hit_buffer, 4)
         end
 
         _ad(_ENV)

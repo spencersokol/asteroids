@@ -66,7 +66,7 @@ game = scene:extend({
 
                 log("player died!")
                 log("player: " .. player.x .. "," .. player.y)
-                log("asteroid: " .. a.x .. "," .. a.y .. " " .. a.width)
+                log("asteroid: " .. a.x .. "," .. a.y .. " " .. a.radius)
                 a.is_killer = true
 
                 lose_life(_ENV)
@@ -76,8 +76,8 @@ game = scene:extend({
             for b in all(bullets) do
                 if bullet_hits_asteroid(_ENV, b, a) then
                     log("bullet hit asteroid")
-                    a:destroy(_ENV)
-                    b:destroy(_ENV)
+                    a:destroy()
+                    b:destroy()
                     player.bullet_count -= 1
                     score += a.score
                 end
@@ -89,7 +89,7 @@ game = scene:extend({
             
             if (b.distance > 130) then
                 player.bullet_count -= 1
-                b:destroy(_ENV)
+                b:destroy()
             end
 
         end
@@ -154,10 +154,10 @@ game = scene:extend({
 
         log("--- check bullet collision ---")
         log("bullet: " .. b.x .. "," .. b.y)
-        log("asteroid: " .. a.x .. "," .. a.y .. " " .. a.width)
+        log("asteroid: " .. a.x .. "," .. a.y .. " " .. a.radius)
         log("---")
 
-        return point_in_circle(b.x, b.y, a.x, a.y, a.width)
+        return point_in_circle(b.x, b.y, a.x, a.y, a.radius)
     end,
 
     asteroid_hits_player = function(_ENV, a)
@@ -165,7 +165,7 @@ game = scene:extend({
         if (player.dead) return false
 
         -- add a buffer here to be a little forgiving
-        local radius = a.width - 0.5
+        local radius = a.radius - a.hit_buffer
 
         log("--- check player collision ---")
         log("player front: " .. player.front.x .. "," .. player.front.y)
@@ -223,14 +223,14 @@ game = scene:extend({
         if (player.dead) return
 
         if (score < 1000) then
-            return (6 == seconds)
+            return (6 <= seconds)
         elseif (score < 5000) then
-            return (4 == seconds)
+            return (4 <= seconds)
         elseif (score < 10000) then
-            return (3 == seconds)
+            return (3 <= seconds)
         end
 
-        return (2 == seconds)
+        return (2 <= seconds)
 
     end,
 

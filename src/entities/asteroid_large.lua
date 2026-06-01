@@ -1,8 +1,9 @@
 large_asteroid = asteroid:extend({
 
     score = 20,
-    width = 10,
+    radius = 10,
     variation = 5,
+    hit_buffer = 5,
 
     -- add a chance of spawning smaller asteroids
     destroy = function(_ENV)
@@ -11,7 +12,7 @@ large_asteroid = asteroid:extend({
 
         if (rnd(1) > 0.1) then
 
-            log("asteroid broke")
+            log("asteroid broke at " .. x .. "," .. y)
 
             -- small or medium asteroid
             local asteroid_type = rnd({ asteroid, medium_asteroid })

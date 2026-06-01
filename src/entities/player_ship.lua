@@ -11,6 +11,8 @@ player_ship = ship:extend({
         x = 64
         y = 64
 
+        rotation = 0
+
         x_velocity = 0
         y_velocity = 0
 
@@ -38,7 +40,7 @@ player_ship = ship:extend({
 
         friction = 0.92
         speed = 1.5
-        rotation_speed = 0.03
+        rotation_speed = 0.02
 
         dead = false
 
@@ -92,6 +94,7 @@ player_ship = ship:extend({
                 bullet_count += 1
                 
             end
+
         end
 
         -- update position

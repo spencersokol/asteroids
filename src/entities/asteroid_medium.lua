@@ -1,8 +1,9 @@
 medium_asteroid = asteroid:extend({
 
     score = 50,
-    width = 7,
+    radius = 7,
     variation = 3,
+    hit_buffer = 3,
 
     -- add a chance of spawning small asteroid
     destroy = function(_ENV)

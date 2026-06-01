@@ -2,22 +2,6 @@ asteroid = entity:extend({
 
     label = "asteroid",
 
-    score = 100,
-    width = 4,
-    variation = 2,
-    x = 0,
-    y = 0,
-    buffer = 0,
-    points = {},
-    min_points = 8,
-    rotation = 0,
-    speed = 0,
-    spin = 0,
-    spin_speed = 0,
-    x_velocity = 0,
-    y_velocity = 0,
-    is_killer = false,
-
     find_start = function(_ENV)
 
         -- start position provided
@@ -57,14 +41,30 @@ asteroid = entity:extend({
 
         entity.init(_ENV)
 
+        score = score or 100
+        radius = radius or 4
+        variation = variation or 2
+        hit_buffer = hit_buffer or 2
+
+        x = x or 0
+        y = y or 0
+        buffer = 0
         points = {}
+        min_points = 8
+        rotation = 0
+        speed = 0
+        spin = 0
+        spin_speed = 0
+        x_velocity = 0
+        y_velocity = 0
+        is_killer = false
 
         -- generate random starting info, with position away from player
         speed = rnd(0.75) + 0.25
         rotation = rnd(1)
         spin_speed = rnd(0.015)
 
-        buffer = width + variation + 10
+        buffer = radius + variation + 10
 
         x_velocity = cos(rotation) * speed
         y_velocity = sin(rotation) * speed
@@ -76,12 +76,12 @@ asteroid = entity:extend({
         log("asteroid.velocity: " .. x_velocity .. "," .. y_velocity)
 
         -- generate random number of points based on size
-        local num_points = flr(rnd(5)) + width
+        local num_points = flr(rnd(5)) + radius
 
         if (num_points < min_points) num_points = min_points
 
         for i = 1, num_points do
-            local distance = width - (flr(rnd(variation)) + 1)
+            local distance = radius - (flr(rnd(variation)) + 1)
             add(points, distance)
         end
 
