@@ -10,7 +10,7 @@ game = scene:extend({
 
         score = 0
 
-        starfield:new()
+        bg = starfield:new()
 
         player = player_ship:new()
 
@@ -103,10 +103,27 @@ game = scene:extend({
     draw = function(_ENV)
         cls()
 
-        -- decide on what objects to actually draw first
-        -- this just tries to draw everything
+        local asteroids = {}
+
+        -- draw everything but the stars first
         for e in all(entity.objects) do
-            e:draw()
+            if (e:is(asteroid)) add(asteroids, e)
+            if (not e:is(star)) e:draw()
+        end
+
+        for e in all(bg.stars) do
+            local draw_star = true
+            for a in all(asteroids) do
+                if (star_behind_asteroid(_ENV, e, a)) then
+                    draw_star = false
+                    break
+                end
+                if (star_behind_player(_ENV, e, a)) then
+                    draw_star = false
+                    break
+                end
+            end
+            if (draw_star) e:draw()
         end
 
         print("score: " .. score, 1, 1, 7)
@@ -147,6 +164,14 @@ game = scene:extend({
 
         player:reset()
 
+    end,
+
+    star_behind_asteroid = function(_ENV, s, a)
+        return point_in_circle(s.x, s.y, a.x, a.y, a.radius)
+    end,
+
+    star_behind_player = function(_ENV, s)
+        return point_in_circle(s.x, s.y, player.x, player.y, 3)
     end,
 
     bullet_hits_asteroid = function(_ENV, b, a)

@@ -21,7 +21,7 @@ I wanna learn PICO-8, and my spouse's favorite game is Asteroids, so here we go.
 - ~~Add player lives~~
 - ~~Add game over screen~~
 - ~~Add asteroid spawning over time to increase difficulty~~
-- Fix asteroid static vs instance properties
+- ~~Fix asteroid static vs instance properties~~
 - ~~Fix point in circle collision~~
 - Add UFOs
 - Add ship destruction animation
@@ -30,7 +30,7 @@ I wanna learn PICO-8, and my spouse's favorite game is Asteroids, so here we go.
 - Add rear booster fire animation while ship moving
 - ~~Add starfield animation~~
 - Fix starfield so stars can't be super close to each other
-- Fix to hide stars behind asteroids
+- ~~Fix to hide stars behind asteroids~~
 - ~~Title screen~~
 - Add line in circle collision
 
