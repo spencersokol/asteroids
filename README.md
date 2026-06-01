@@ -23,15 +23,15 @@ I wanna learn PICO-8, and my spouse's favorite game is Asteroids, so here we go.
 - ~~Add asteroid spawning over time to increase difficulty~~
 - ~~Fix asteroid static vs instance properties~~
 - ~~Fix point in circle collision~~
-- Add UFOs
-- Add ship destruction animation
-- Add asteroid destruction animation
-- Add sfx
-- Add rear booster fire animation while ship moving
+- ~~Add ship destruction animation~~
+- ~~Add asteroid destruction animation~~
 - ~~Add starfield animation~~
-- Fix starfield so stars can't be super close to each other
 - ~~Fix to hide stars behind asteroids~~
 - ~~Title screen~~
+- Add sfx
+- Add rear booster fire animation while ship moving
+- Add UFOs
+- Fix starfield so stars can't be super close to each other
 - Add line in circle collision
 
 ### Resources

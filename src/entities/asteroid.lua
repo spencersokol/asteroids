@@ -134,4 +134,12 @@ asteroid = entity:extend({
         end
     end,
 
+    destroy = function(_ENV)
+
+        entity.destroy(_ENV)
+
+        explosion:new({ x = x, y = y })
+
+    end
+
 })

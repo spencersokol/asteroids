@@ -26,6 +26,8 @@ large_asteroid = asteroid:extend({
 
             end
 
+        else
+            explosion:new({ x = x, y = y, max = 15 })
         end
         
     end

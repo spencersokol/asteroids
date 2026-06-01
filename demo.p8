@@ -9,6 +9,7 @@ __lua__
 #include src/utils/2dcollision.lua
 
 #include src/entities/entity.lua
+#include src/entities/explosion.lua
 #include src/entities/starfield.lua
 #include src/entities/star.lua
 #include src/entities/ship.lua

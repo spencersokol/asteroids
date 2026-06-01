@@ -16,6 +16,8 @@ medium_asteroid = asteroid:extend({
 
             asteroid:new({ x = x, y = y })
 
+        else 
+            explosion:new({ x = x, y = y, max = 8 })
         end
 
     end

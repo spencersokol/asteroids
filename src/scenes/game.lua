@@ -144,6 +144,7 @@ game = scene:extend({
         del(ships, s)
         s:destroy()
         player.dead = true
+        explosion:new({ x = player.x, y = player.y })
         sfx(0)
                 
     end,
