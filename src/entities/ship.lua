@@ -10,6 +10,10 @@ ship = entity:extend({
 
         front.x = x + (cos * front_distance) -- - (sin * 0)
         front.y = y + (sin * front_distance) -- + (cos * 0)
+        center_left.x = x + 0 - (sin * (side_distance * 0.65))
+        center_left.y = y + 0 + (cos * (side_distance * 0.65))
+        center_right.x = x + 0 - (sin * -(side_distance * 0.65))
+        center_right.y = y + 0 + (cos * -(side_distance * 0.65))
         rear.x = x + (cos * -rear_distance) -- - (sin * 0)
         rear.y = y + (sin * -rear_distance) -- + (cos * 0)
         rear_left.x = x + (cos * -rear_distance) - (sin * side_distance)
@@ -33,6 +37,8 @@ ship = entity:extend({
         y = y or 64
 
         front = { x = 0, y = 0 }
+        center_left = { x = 0, y = 0 }
+        center_right = { x = 0, y = 0 }
         rear = { x = 0, y = 0 }
         rear_left = { x = 0, y = 0 }
         rear_right = { x = 0, y = 0 }

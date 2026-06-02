@@ -21,6 +21,8 @@ player_ship = ship:extend({
         rear = { x = 0, y = 0 }
         rear_left = { x = 0, y = 0 }
         rear_right = { x = 0, y = 0 }
+        center_left = { x = 0, y = 0 }
+        center_right = { x = 0, y = 0 }
         
     end,
 

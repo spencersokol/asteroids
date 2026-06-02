@@ -189,44 +189,12 @@ game = scene:extend({
         local radius = a.radius - a.hit_buffer
 
         -- check the points first
-        local front = point_in_circle(player.front.x, player.front.y, a.x, a.y, radius)
-        local rear_left = point_in_circle(player.rear_left.x, player.rear_left.y, a.x, a.y, radius)
-        local rear_right = point_in_circle(player.rear_right.x, player.rear_right.y, a.x, a.y, radius)
-
-        if (front or rear_left or rear_right) return true
-
-        --[[
-        -- check the lines
-        local side1 = line_in_circle(
-            player.front.x,
-            player.front.y,
-            player.rear_left.x,
-            player.rear_left.y,
-            a.x,
-            a.y,
-            radius
-        )
-        local side2 = line_in_circle(
-            player.front.x,
-            player.front.y,
-            player.rear_right.x,
-            player.rear_right.y,
-            a.x,
-            a.y,
-            radius
-        )
-        local side3 = line_in_circle(
-            player.rear_left.x,
-            player.rear_left.y,
-            player.rear_right.x,
-            player.rear_right.y,
-            a.x,
-            a.y,
-            radius
-        )
-        
-        if (side1 or side2 or side3) return true
-        ]]
+        if (point_in_circle(player.front.x, player.front.y, a.x, a.y, radius)) return true
+        if (point_in_circle(player.rear_left.x, player.rear_left.y, a.x, a.y, radius)) return true
+        if (point_in_circle(player.rear_right.x, player.rear_right.y, a.x, a.y, radius)) return true
+        if (point_in_circle(player.rear.x, player.rear.y, a.x, a.y, radius)) return true
+        if (point_in_circle(player.center_left.x, player.center_left.y, a.x, a.y, radius)) return true
+        if (point_in_circle(player.center_right.x, player.center_right.y, a.x, a.y, radius)) return true
 
         return false
 

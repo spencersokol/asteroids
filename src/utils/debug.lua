@@ -31,4 +31,23 @@ function enable_debug()
         
     end
 
+    local _pd = player_ship.draw
+
+    player_ship.draw = function(_ENV)
+
+        _pd(_ENV)
+
+        if (not _ENV.dead) then
+
+            pset(_ENV.front.x, _ENV.front.y, 8)
+            pset(_ENV.rear.x, _ENV.rear.y, 8)
+            pset(_ENV.rear_left.x, _ENV.rear_left.y, 8)
+            pset(_ENV.rear_right.x, _ENV.rear_right.y, 8)
+            pset(_ENV.center_left.x, _ENV.center_left.y, 8)
+            pset(_ENV.center_right.x, _ENV.center_right.y, 8)
+
+        end
+        
+    end
+
 end

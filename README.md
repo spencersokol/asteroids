@@ -2,7 +2,19 @@
 
 I wanna learn PICO-8, and my spouse's favorite game is Asteroids, so here we go...
 
+### Resources
+
+- [Kevin Thompson](https://github.com/kevinthompson) - snagged a lot of OO concepts for PICO-8 from them
+- [Net Ninja Asteroids](https://youtube.com/playlist?list=PL4cUxeGkcC9iO8ai6LU0s6aHAaWP4RAkF&si=9SBAqG52NgAc4gg6) - Has some usable ship/player math descriptions
+- [Jeffrey Thompson Collision Detection](https://www.jeffreythompson.org/collision-detection/)
+
 ## TODO
+
+- Add sfx
+- Add UFOs
+- Fix starfield so stars can't be super close to each other
+
+## ~~DONE~~
 
 - ~~Add debugging utils~~
 - ~~Add OOP for scenes and entities~~
@@ -28,15 +40,7 @@ I wanna learn PICO-8, and my spouse's favorite game is Asteroids, so here we go.
 - ~~Add starfield animation~~
 - ~~Fix to hide stars behind asteroids~~
 - ~~Title screen~~
-- Add sfx
 - ~~Add rear booster fire animation while ship moving~~
-- Add UFOs
-- Fix starfield so stars can't be super close to each other
-- Add line in circle collision
+- ~~Add line in circle collision~~
+- ~~Add center point of ship side collision~~
 - ~~Optimize collision detection~~
-
-### Resources
-
-- [Kevin Thompson](https://github.com/kevinthompson) - snagged a lot of OO concepts for PICO-8 from them
-- [Net Ninja Asteroids](https://youtube.com/playlist?list=PL4cUxeGkcC9iO8ai6LU0s6aHAaWP4RAkF&si=9SBAqG52NgAc4gg6) - Has some usable ship/player math descriptions
-- [Jeffrey Thompson Collision Detection](https://www.jeffreythompson.org/collision-detection/)
