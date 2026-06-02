@@ -6,7 +6,8 @@ game = scene:extend({
         ships = {}
 
         frames = 0
-        seconds = 0 -- since last asteroid spawn
+        seconds_since_asteroid_spawn = 0
+        seconds_since_ufo_spawn = 0
 
         score = 0
 
@@ -31,10 +32,13 @@ game = scene:extend({
         
         if (frames > 30) then
             frames = 0
-            seconds += 1
+            seconds_since_asteroid_spawn += 1
+            seconds_since_ufo_spawn += 1
         end
 
         if (should_spawn_asteroids(_ENV)) spawn_asteroids(_ENV)
+
+        if (should_spawn_ufo(_ENV)) spawn_ufo(_ENV)
 
         local asteroids = {}
         local bullets = {}
@@ -147,10 +151,10 @@ game = scene:extend({
 
     try_spawn_player = function(_ENV, asteroids)
 
-        -- wait two full seconds
+        -- wait two full seconds_since_asteroid_spawn
         if (not (player.frames_since_death > 60)) return
 
-        -- after 4 seconds start dropping asteroids every two seconds if player hasn't spawned
+        -- after 4 seconds_since_asteroid_spawn start dropping asteroids every two seconds_since_asteroid_spawn if player hasn't spawned
         if ((player.frames_since_death > 120) and (0 == (player.frames_since_death % 60))) then
             local a = asteroids[#asteroids]
             a:destroy()
@@ -200,19 +204,38 @@ game = scene:extend({
 
     end,
 
-    should_spawn_asteroids = function(_ENV)
-        
-        if (player.dead) return
+    should_spawn_ufo = function(_ENV)
 
-        if (score < 1000) then
-            return (6 <= seconds)
-        elseif (score < 5000) then
-            return (4 <= seconds)
-        elseif (score < 10000) then
-            return (3 <= seconds)
+        if (player.dead) return false
+
+        if (seconds_since_ufo_spawn > 30) then
+            return (rnd(1) > 0.75)
         end
 
-        return (2 <= seconds)
+        return false
+
+    end,
+
+    spawn_ufo = function(_ENV)
+
+        ufo:new()
+        seconds_since_ufo_spawn = 0
+
+    end,
+
+    should_spawn_asteroids = function(_ENV)
+        
+        if (player.dead) return false
+
+        if (score < 1000) then
+            return (6 <= seconds_since_asteroid_spawn)
+        elseif (score < 5000) then
+            return (4 <= seconds_since_asteroid_spawn)
+        elseif (score < 10000) then
+            return (3 <= seconds_since_asteroid_spawn)
+        end
+
+        return (2 <= seconds_since_asteroid_spawn)
 
     end,
 
@@ -241,7 +264,7 @@ game = scene:extend({
             asteroid_type:new()
         end
 
-        seconds = 0
+        seconds_since_asteroid_spawn = 0
 
     end
 
