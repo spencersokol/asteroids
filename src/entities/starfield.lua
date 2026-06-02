@@ -9,18 +9,12 @@ starfield = entity:extend({
 
         stars = {}
 
-        star_count = rnd(40) + 20
+        local star_count = flr(rnd(40)) + 40
 
         for i = 1, star_count do
             add(stars, star:new())
         end
 
     end,
-
-    update = function(_ENV)
-
-        entity.update(_ENV)
-
-    end
 
 })

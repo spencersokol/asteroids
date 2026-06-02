@@ -13,6 +13,7 @@ player_ship = ship:extend({
 
         rotation = 0
 
+        thrusting = false
         x_velocity = 0
         y_velocity = 0
 
@@ -72,9 +73,11 @@ player_ship = ship:extend({
 
         -- handle movement input
         if btn(2) then
+            thrusting = true
             x_velocity = cos(rotation) * speed
             y_velocity = sin(rotation) * speed
         else -- slow down over time
+            thrusting = false
             x_velocity *= friction
             y_velocity *= friction
         end
@@ -124,7 +127,23 @@ player_ship = ship:extend({
     end,
 
     draw = function(_ENV)
-        if (not dead) ship.draw(_ENV)
+
+        if (not dead) then
+            
+            if (thrusting) then
+
+                local len = rnd(3) + 1
+                local lenx = x + (cos(rotation) * -(rear_distance + len)) -- - (sin * 0)
+                local leny = y + (sin(rotation) * -(rear_distance + len)) -- + (cos * 0)
+
+                line(rear.x, rear.y, lenx, leny, rnd({7, 9, 10}))
+                
+            end
+
+            ship.draw(_ENV)
+
+        end
+
     end
 
 })

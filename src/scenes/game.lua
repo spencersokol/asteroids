@@ -12,6 +12,8 @@ game = scene:extend({
 
         bg = starfield:new()
 
+        status("stars: " .. #bg.stars)
+
         player = player_ship:new()
 
         for i = 1, 3 do
@@ -104,7 +106,9 @@ game = scene:extend({
         end
 
         for e in all(bg.stars) do
+
             local draw_star = true
+
             for a in all(asteroids) do
                 if (star_behind_asteroid(_ENV, e, a)) then
                     draw_star = false
@@ -115,7 +119,9 @@ game = scene:extend({
                     break
                 end
             end
+
             if (draw_star) e:draw()
+
         end
 
         print("score: " .. score, 1, 1, 7)

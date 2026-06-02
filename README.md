@@ -29,11 +29,11 @@ I wanna learn PICO-8, and my spouse's favorite game is Asteroids, so here we go.
 - ~~Fix to hide stars behind asteroids~~
 - ~~Title screen~~
 - Add sfx
-- Add rear booster fire animation while ship moving
+- ~~Add rear booster fire animation while ship moving~~
 - Add UFOs
 - Fix starfield so stars can't be super close to each other
 - Add line in circle collision
-- Optimize collision detection
+- ~~Optimize collision detection~~
 
 ### Resources
 

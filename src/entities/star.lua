@@ -9,8 +9,8 @@ star = entity:extend({
 
         colors = {0, 1, 5, 13}
 
-        x = flr(rnd(127))
-        y = flr(rnd(127))
+        x = x or flr(rnd(127))
+        y = y or flr(rnd(127))
 
         clr = rnd(colors)
 
