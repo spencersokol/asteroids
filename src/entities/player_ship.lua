@@ -75,6 +75,7 @@ player_ship = ship:extend({
 
         -- handle movement input
         if btn(2) then
+            sfx(2)
             thrusting = true
             x_velocity = cos(rotation) * speed
             y_velocity = sin(rotation) * speed
