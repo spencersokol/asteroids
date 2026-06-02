@@ -7,11 +7,13 @@ explosion = entity:extend({
         x = x or 64
         y = y or 64
         max = max or 5
+        min = 5
 
         parts = {}
         frames = 0
+        max_frames = 15
 
-        local c = (flr(rnd(max)) + 3)
+        local c = (flr(rnd(max)) + min)
 
         for i = 1, c do
 
@@ -23,7 +25,7 @@ explosion = entity:extend({
                 y = y,
                 x_velocity = cos(rotation) * speed,
                 y_velocity = sin(rotation) * speed,
-                frames = flr(rnd(30)),
+                frames = flr(rnd(max_frames)),
                 clr = rnd({7, 9, 10})
             })
         end
@@ -36,7 +38,7 @@ explosion = entity:extend({
 
         frames += 1
 
-        if (frames > 30) _ENV:destroy()
+        if (frames > max_frames) _ENV:destroy()
 
         for p in all(parts) do
             p.x += p.x_velocity
