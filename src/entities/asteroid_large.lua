@@ -17,12 +17,15 @@ large_asteroid = asteroid:extend({
             -- small or medium asteroid
             local asteroid_type = rnd({ asteroid, medium_asteroid })
 
-            asteroid_type:new({ x = x, y = y })
+            local b = flr(rnd(8)) - 4
+            asteroid_type:new({ x = x + b, y = y + b })
 
             if (rnd(1) > 0.5) then
                 
+                b = flr(rnd(8)) - 4
+
                 -- small asteroid
-                asteroid:new({ x = x, y = y })
+                asteroid:new({ x = x + b, y = y + b })
 
             end
 

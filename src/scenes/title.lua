@@ -24,7 +24,8 @@ title = scene:extend({
             e:draw()
         end
 
-        print("Asteroids Clone", 35, 60, 7)
+        print("Not Necessarily", 35, 36, 7)
+        print("Asteroids", 48, 44, 7)
 
     end
 })

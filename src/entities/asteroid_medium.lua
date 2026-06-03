@@ -14,7 +14,8 @@ medium_asteroid = asteroid:extend({
         
         if (rnd(1) > 0.5) then
 
-            asteroid:new({ x = x, y = y })
+            local b = flr(rnd(8)) - 4
+            asteroid:new({ x = x + b, y = y + b })
 
         else 
             explosion:new({ x = x, y = y, max = 8 })

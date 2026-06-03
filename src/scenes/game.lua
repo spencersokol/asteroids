@@ -193,7 +193,7 @@ game = scene:extend({
     end,
 
     ufo_hits_player = function(_ENV, ufo)
-        
+
     end,
     
     bullet_hits_player = function(_ENV, b)
@@ -283,6 +283,8 @@ game = scene:extend({
             asteroid,
             medium_asteroid,
             medium_asteroid,
+            large_asteroid,
+            large_asteroid,
             large_asteroid,
             large_asteroid
         }
