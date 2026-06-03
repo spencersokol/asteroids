@@ -9,6 +9,14 @@ bullet = entity:extend({
 
         sfx(1)
         
+        source = source or "player"
+
+        if ("player" == source) then
+            sfx(1)
+        else
+            sfx(1)
+        end
+
         -- position
         x = x or 0
         y = y or 0

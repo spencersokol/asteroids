@@ -4,7 +4,7 @@ game = scene:extend({
 
         player = {}
         ships = {}
-
+        
         frames = 0
         seconds_since_asteroid_spawn = 0
         seconds_since_ufo_spawn = 0
@@ -42,6 +42,7 @@ game = scene:extend({
 
         local asteroids = {}
         local bullets = {}
+        local ufo = nil
 
         -- update all and prep for collisions
         for e in all(entity.objects) do
@@ -75,21 +76,31 @@ game = scene:extend({
             end
 
             for b in all(bullets) do
-                if bullet_hits_asteroid(_ENV, b, a) then
+                if (("player" == b.source) and bullet_hits_asteroid(_ENV, b, a)) then
                     a:destroy()
                     b:destroy()
                     score += a.score
                 end
             end
+
         end
 
-        -- bullets should only travel so far
         for b in all(bullets) do
-            
+
+            -- collisions
+            if (("ufo" == b.source) and bullet_hits_player(_ENV, b)) then
+                lose_life(_ENV)
+            end
+
+            -- bullets should only travel so far
             if (b.distance > 130) then
                 b:destroy()
             end
 
+        end
+
+        if (not (ufo == nil) and ufo_hits_player(_ENV, ufo)) then
+            lose_life(_ENV)
         end
 
         if (#ships == 0) and btnp(5) then
@@ -99,6 +110,7 @@ game = scene:extend({
     end,
 
     draw = function(_ENV)
+
         cls()
 
         local asteroids = {}
@@ -180,6 +192,14 @@ game = scene:extend({
         return point_in_circle(s.x, s.y, player.x, player.y, 3)
     end,
 
+    ufo_hits_player = function(_ENV, ufo)
+        
+    end,
+    
+    bullet_hits_player = function(_ENV, b)
+        
+    end,
+
     bullet_hits_asteroid = function(_ENV, b, a)
         -- use point/circle collision detection
         return point_in_circle(b.x, b.y, a.x, a.y, a.radius)
@@ -208,8 +228,10 @@ game = scene:extend({
 
         if (player.dead) return false
 
-        if (seconds_since_ufo_spawn > 30) then
-            return (rnd(1) > 0.75)
+        -- 50% chance every 10 seconds
+        if (seconds_since_ufo_spawn > 10) then
+            seconds_since_ufo_spawn = 0
+            return (rnd(1) > 0.5)
         end
 
         return false
@@ -244,12 +266,12 @@ game = scene:extend({
         if (score < 1000) then
             return flr(rnd(2)) + 1
         elseif (score < 5000) then
-            return flr(rnd(4)) + 1
+            return flr(rnd(3)) + 1
         elseif (score < 10000) then
-            return flr(rnd(6)) + 1
+            return flr(rnd(4)) + 1
         end
 
-        return flr(rnd(8))
+        return flr(rnd(5)) + 1
 
     end,
 
@@ -257,7 +279,13 @@ game = scene:extend({
 
         c = c or spawn_count(_ENV)
 
-        local asteroid_types = { asteroid, medium_asteroid, large_asteroid }
+        local asteroid_types = { 
+            asteroid,
+            medium_asteroid,
+            medium_asteroid,
+            large_asteroid,
+            large_asteroid
+        }
 
         for i = 1, c do
             local asteroid_type = rnd(asteroid_types)

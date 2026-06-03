@@ -7,17 +7,18 @@ ufo = entity:extend({
         entity.init(_ENV)
 
         score = 200
+        buffer = 20
 
         -- start from left
         ltr = true
-        x = -20
+        x = -buffer
         rotation = 0
 
         if (rnd(1) > 0.5) then
 
             -- start from right
             ltr = false
-            x = 147
+            x = 127 + buffer
             rotation = 0.5
 
         end
@@ -25,6 +26,7 @@ ufo = entity:extend({
         y = flr(rnd(127))
 
         frames = 0
+        frames_since_firing = 0
 
         speed = 0.8
 
@@ -38,6 +40,7 @@ ufo = entity:extend({
         entity.update(_ENV)
 
         frames += 1
+        frames_since_firing += 1
 
         if (frames >= 30) then
 
@@ -58,6 +61,39 @@ ufo = entity:extend({
 
         end
 
+        if ((frames_since_firing % 20) == 0) then
+
+            if (rnd() > 0.65) then
+
+                -- shoot toward the diagonal direction
+                -- from the current position
+                local q1 = (x >= 64) and (y <= 64)
+                local q2 = (x <= 64) and (y <= 64)
+                local q4 = (x >= 64) and (y >= 64)
+                
+                local r = rnd(0.25)
+
+                if (q1) then
+                    r += 0.5
+                elseif (q2) then
+                    r += 0.75
+                elseif (q4) then 
+                    r = 0.25
+                end
+
+                bullet:new({
+                    source = "ufo",
+                    x = x,
+                    y = y,
+                    rotation = r
+                })
+
+                frames_since_firing = 0
+
+            end
+
+        end
+
         -- update velocity
         x_velocity = cos(rotation) * speed
         y_velocity = sin(rotation) * speed
@@ -66,6 +102,10 @@ ufo = entity:extend({
         x += x_velocity
         y += y_velocity
 
+        if (ltr and (x > (127 + buffer))) or (not ltr and (x < -buffer)) then
+            entity.destroy(_ENV)
+        end
+        
     end,
 
     draw = function(_ENV)

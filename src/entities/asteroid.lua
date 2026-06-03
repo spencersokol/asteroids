@@ -57,7 +57,7 @@ asteroid = entity:extend({
         is_killer = false
 
         -- generate random starting info, with position away from player
-        speed = rnd(0.75) + 0.25
+        speed = rnd(0.5) + 0.25
         rotation = rnd(1)
         spin_speed = rnd(0.015)
 

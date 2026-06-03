@@ -12,8 +12,10 @@ I wanna learn PICO-8, and my spouse's favorite game is Asteroids, so here we go.
 
 - ~~Add UFOs and movement~~
 - Add UFO image
-- Add UFO firing bullets
+- ~~Add UFO firing bullets~~
+- Add all UFO collisions
 - Add sfx
+- Add instructions to title and game over screens
 - Fix starfield so stars can't be super close to each other
 
 ## ~~DONE~~
