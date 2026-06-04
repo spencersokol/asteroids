@@ -2,11 +2,10 @@ ufo = entity:extend({
      
     label = "ufo",
 
-    init = function(_ENV)
-
-        entity.init(_ENV)
+    reset = function(_ENV)
 
         score = 200
+
         buffer = 20
 
         -- start from left
@@ -35,12 +34,53 @@ ufo = entity:extend({
 
     end,
 
+    init = function(_ENV)
+
+        entity.init(_ENV)
+
+        reset(_ENV)
+
+    end,
+
     update = function(_ENV)
 
         entity.update(_ENV)
 
+        handle_frames(_ENV)
+
+        handle_rotation(_ENV)
+
+        local xc = ltr and (x + 6) or (x - 6)
+
+        handle_firing(_ENV, xc, y + 2)
+
+        handle_movement(_ENV)
+
+    end,
+
+    draw = function(_ENV)
+
+        spr(3, x, y)
+
+    end,
+
+    destroy = function(_ENV)
+
+        entity.destroy(_ENV)
+
+        sfx(2)
+        explosion:new({ x = x, y = y, max = 15 })
+
+    end,
+
+    handle_frames = function(_ENV)
+
         frames += 1
         frames_since_firing += 1
+
+    end,
+
+    handle_rotation = function(_ENV)
 
         if (frames >= 30) then
 
@@ -60,6 +100,10 @@ ufo = entity:extend({
             end
 
         end
+
+    end,
+
+    handle_firing = function(_ENV, xcoord, ycoord)
 
         if ((frames_since_firing % 20) == 0) then
 
@@ -83,8 +127,8 @@ ufo = entity:extend({
 
                 bullet:new({
                     source = "ufo",
-                    x = x,
-                    y = y,
+                    x = xcoord,
+                    y = ycoord,
                     rotation = r
                 })
 
@@ -94,6 +138,10 @@ ufo = entity:extend({
 
         end
 
+    end,
+
+    handle_movement = function(_ENV)
+
         -- update velocity
         x_velocity = cos(rotation) * speed
         y_velocity = sin(rotation) * speed
@@ -102,16 +150,11 @@ ufo = entity:extend({
         x += x_velocity
         y += y_velocity
 
+        -- kill it if it makes it across the screen
         if (ltr and (x > (127 + buffer))) or (not ltr and (x < -buffer)) then
             entity.destroy(_ENV)
         end
         
-    end,
-
-    draw = function(_ENV)
-
-        rectfill(x - 3, y - 3, x + 3, y + 3, 8)
-
-    end,
+    end
 
 })

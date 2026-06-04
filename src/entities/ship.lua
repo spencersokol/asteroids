@@ -49,10 +49,18 @@ ship = entity:extend({
 
     draw = function(_ENV) 
 
-        line(front.x, front.y, rear_left.x, rear_left.y, 7)
-        line(front.x, front.y, rear_right.x, rear_right.y, 7)
-        line(rear_left.x, rear_left.y, rear_right.x, rear_right.y, 7)
-        
+        for side in all(sides(_ENV)) do
+            line(side.x1, side.y1, side.x2, side.y2, 7)
+        end
+
     end,
+
+    sides = function(_ENV)
+        return {
+            { x1 = front.x, y1 = front.y, x2 = rear_left.x, y2 = rear_left.y },
+            { x1 = rear_left.x, y1 = rear_left.y, x2 = rear_right.x, y2 = rear_right.y },
+            { x1 = rear_right.x, y1 = rear_right.y, x2 = front.x, y2 = front.y },
+        }
+    end
 
 })

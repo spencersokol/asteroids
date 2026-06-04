@@ -42,8 +42,8 @@ game = scene:extend({
 
         local asteroids = {}
         local bullets = {}
-        local ufo = nil
-
+        local current_ufo = nil
+    
         -- update all and prep for collisions
         for e in all(entity.objects) do
             
@@ -51,6 +51,9 @@ game = scene:extend({
                 add(bullets, e)
             elseif (e:is(asteroid)) then
                 add(asteroids, e)
+            elseif (e:is(ufo)) then
+                current_ufo = e
+                status("ufo")
             end
 
             e:update()
@@ -88,8 +91,17 @@ game = scene:extend({
         for b in all(bullets) do
 
             -- collisions
-            if (("ufo" == b.source) and bullet_hits_player(_ENV, b)) then
-                lose_life(_ENV)
+            if (current_ufo) then
+                
+                if (("ufo" == b.source) and bullet_hits_player(_ENV, b)) then
+                    lose_life(_ENV)
+                elseif (("player" == b.source) and bullet_hits_ufo(_ENV, b, current_ufo)) then
+                    status("bullet hit ufo")
+                    current_ufo:destroy()
+                    b:destroy()
+                    score += current_ufo.score
+                end
+
             end
 
             -- bullets should only travel so far
@@ -99,7 +111,7 @@ game = scene:extend({
 
         end
 
-        if (not (ufo == nil) and ufo_hits_player(_ENV, ufo)) then
+        if (current_ufo and ufo_hits_player(_ENV, current_ufo)) then
             lose_life(_ENV)
         end
 
@@ -114,10 +126,12 @@ game = scene:extend({
         cls()
 
         local asteroids = {}
+        local current_ufo = nil
 
         -- draw everything but the stars first
         for e in all(entity.objects) do
             if (e:is(asteroid)) add(asteroids, e)
+            if (e:is(ufo)) current_ufo = e
             if (not e:is(star)) e:draw()
         end
 
@@ -130,10 +144,14 @@ game = scene:extend({
                     draw_star = false
                     break
                 end
-                if (star_behind_player(_ENV, e, a)) then
-                    draw_star = false
-                    break
-                end
+            end
+
+            if (star_behind_player(_ENV, e)) then
+                draw_star = false
+            end
+
+            if (current_ufo and star_behind_ufo(_ENV, e, current_ufo)) then
+                draw_star = false
             end
 
             if (draw_star) e:draw()
@@ -188,6 +206,14 @@ game = scene:extend({
         return point_in_circle(s.x, s.y, a.x, a.y, a.radius)
     end,
 
+    star_behind_ufo = function(_ENV, s, ufo)
+
+        local x1 = ufo:is(ufo_large) and (ufo.x - 8) or (ufo.x - 4)
+        local x2 = ufo:is(ufo_large) and (ufo.x + 8) or (ufo.x + 4)
+
+        return point_in_rectangle(s.x, s.y, x1, ufo.y - 4, x2, ufo.y + 4)
+    end,
+
     star_behind_player = function(_ENV, s)
         return point_in_circle(s.x, s.y, player.x, player.y, 3)
     end,
@@ -196,8 +222,16 @@ game = scene:extend({
 
     end,
     
+    bullet_hits_ufo = function(_ENV, b, ufo)
+
+        local x1 = ufo:is(ufo_large) and (ufo.x - 8) or (ufo.x - 4)
+        local x2 = ufo:is(ufo_large) and (ufo.x + 8) or (ufo.x + 4)
+
+        return point_in_rectangle(b.x, b.y, x1, ufo.y - 4, x2, ufo.y + 4)
+    end,
+
     bullet_hits_player = function(_ENV, b)
-        
+        return point_in_polygon(b.x, b.y, player:sides())
     end,
 
     bullet_hits_asteroid = function(_ENV, b, a)
@@ -240,7 +274,18 @@ game = scene:extend({
 
     spawn_ufo = function(_ENV)
 
-        ufo:new()
+        local ufo_types = {
+            ufo,
+            ufo,
+            ufo_large,
+            ufo_large,
+            ufo_large,
+            ufo_large,
+            ufo_large
+        }
+        local ufo_type = rnd(ufo_types)
+
+        ufo_type:new()
         seconds_since_ufo_spawn = 0
 
     end,

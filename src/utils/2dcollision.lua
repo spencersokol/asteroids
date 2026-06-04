@@ -21,3 +21,32 @@ end
 function line_in_circle(x1, y1, x2, y2, cx, cy, radius)
     return false
 end
+
+function point_in_rectangle(x, y, x1, y1, x2, y2)
+
+    -- transpose everything just to make
+    -- sure every coord is positive
+    x += 128
+    y += 128
+    x1 += 128
+    y1 += 128
+    x2 += 128
+    y2 += 128
+
+    return ((x >= x1) and (y >= y1) and (x <= x2) and (y <= y2))
+end
+
+function point_in_polygon(x, y, sides)
+    
+    local collision = false
+
+    for side in all(sides) do
+        if (((side.y1 >= y and side.y2 < y) or (side.y1 < y and side.y2 >= y)) and
+            (x < (side.x2 - side.x1) * (y - side.y1) / (side.y2 - side.y1) + side.x1)) then
+                collision = not collision
+        end
+    end
+
+    return collision
+
+end
