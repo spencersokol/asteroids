@@ -21,7 +21,7 @@ game = scene:extend({
             add_life(_ENV)
         end
 
-        -- spawn_asteroids(_ENV, 7)
+        spawn_asteroids(_ENV, 7)
 
     end,
 
@@ -35,7 +35,7 @@ game = scene:extend({
             seconds_since_ufo_spawn += 1
         end
 
-        -- if (should_spawn_asteroids(_ENV)) spawn_asteroids(_ENV)
+        if (should_spawn_asteroids(_ENV)) spawn_asteroids(_ENV)
 
         if (should_spawn_ufo(_ENV)) spawn_ufo(_ENV)
 
@@ -307,7 +307,7 @@ game = scene:extend({
         -- 50% chance every 10 seconds
         if (seconds_since_ufo_spawn > 10) then
             seconds_since_ufo_spawn = 0
-            return (rnd(1) > 0.1)
+            return (rnd(1) > 0.5)
         end
 
         return false
@@ -316,7 +316,7 @@ game = scene:extend({
 
     spawn_ufo = function(_ENV)
 
-        local ufo_types = {
+        local ufo_type = rnd({
             ufo,
             ufo,
             ufo_large,
@@ -324,10 +324,10 @@ game = scene:extend({
             ufo_large,
             ufo_large,
             ufo_large
-        }
-        local ufo_type = rnd(ufo_types)
+        })
 
-        ufo_type:new()
+        -- Start targeting player when they reach a score threshold 
+        ufo_type:new({ target = (score > 5000) and player or nil })
         seconds_since_ufo_spawn = 0
 
     end,

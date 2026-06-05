@@ -8,6 +8,8 @@ ufo = entity:extend({
 
         buffer = 20
 
+        target = target or nil
+
         dead = false
 
         -- start from left
@@ -132,34 +134,51 @@ ufo = entity:extend({
 
     handle_firing = function(_ENV, xcoord, ycoord)
 
-        if ((frames_since_firing % 20) == 0) then
+        if ((frames_since_firing % 30) == 0) then
 
-            if (rnd() > 0.65) then
+            if (not target) then
 
-                -- shoot toward the diagonal direction
-                -- from the current position
-                local q1 = (x >= 64) and (y <= 64)
-                local q2 = (x <= 64) and (y <= 64)
-                local q4 = (x >= 64) and (y >= 64)
-                
-                local r = rnd(0.25)
+                if (rnd() > 0.65) then
 
-                if (q1) then
-                    r += 0.5
-                elseif (q2) then
-                    r += 0.75
-                elseif (q4) then 
-                    r = 0.25
+                    -- shoot toward the diagonal direction
+                    -- from the current position
+                    local q1 = (x >= 64) and (y <= 64)
+                    local q2 = (x <= 64) and (y <= 64)
+                    local q4 = (x >= 64) and (y >= 64)
+                    
+                    local r = rnd(0.25)
+
+                    if (q1) then
+                        r += 0.5
+                    elseif (q2) then
+                        r += 0.75
+                    elseif (q4) then 
+                        r = 0.25
+                    end
+
+                    bullet:new({
+                        source = "ufo",
+                        x = xcoord,
+                        y = ycoord,
+                        rotation = r
+                    })
+
+                    frames_since_firing = 0
+
                 end
 
+            else
+
+                local dx = target.x - x
+                local dy = target.y - y
+
+                -- fire at the target
                 bullet:new({
                     source = "ufo",
                     x = xcoord,
                     y = ycoord,
-                    rotation = r
+                    rotation = atan2(dx, dy)
                 })
-
-                frames_since_firing = 0
 
             end
 
