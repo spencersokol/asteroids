@@ -73,6 +73,19 @@ ufo = entity:extend({
 
     end,
 
+    sides = function(_ENV)
+
+        return {
+            { x1 = x, y1 = y + 3, x2 = x + 3, y2 = y },
+            { x1 = x + 3, y1 = y, x2 = x + 4, y2 = y },
+            { x1 = x + 4, y1 = y, x2 = x + 7, y2 = y + 3 },
+            { x1 = x + 7, y1 = y + 3, x2 = x + 5, y2 = y + 7 },
+            { x1 = x + 5, y1 = y + 7, x2 = x + 2, y2 = y + 7 },
+            { x1 = x + 2, y1 = y + 7, x2 = x, y2 = y + 4 }
+        }
+
+    end,
+
     handle_frames = function(_ENV)
 
         frames += 1

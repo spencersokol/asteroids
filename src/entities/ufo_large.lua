@@ -30,8 +30,23 @@ ufo_large = ufo:extend({
 
     draw = function(_ENV)
 
-        spr(1, x - 4, y - 4)
-        spr(2, x + 4, y - 4)
+        spr(1, x, y)
+        spr(2, x + 8, y)
+
+    end,
+
+    sides = function(_ENV)
+
+        return {
+            { x1 = x, y1 = y + 3, x2 = x + 1, y2 = y + 3 },
+            { x1 = x + 1, y1 = y + 3, x2 = x + 4, y2 = y },
+            { x1 = x + 4, y1 = y, x2 = x + 11, y2 = y },
+            { x1 = x + 11, y1 = y, x2 = x + 14, y2 = y + 3 },
+            { x1 = x + 14, y1 = y + 3, x2 = x + 15, y2 = y + 3 },
+            { x1 = x + 15, y1 = y + 3, x2 = x + 11, y2 = y + 7 },
+            { x1 = x + 11, y1 = y + 7, x2 = x + 4, y2 = y + 7 },
+            { x1 = x + 4, y1 = y + 7, x2 = x, y2 = y + 3 }
+        }
 
     end
 

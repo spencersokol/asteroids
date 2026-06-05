@@ -11,9 +11,10 @@ I wanna learn PICO-8, and my spouse's favorite game is Asteroids, so here we go.
 ## TODO
 
 - ~~Add UFOs and movement~~
-- Add UFO sprite
+- ~~Add UFO sprite~~
 - ~~Add UFO firing bullets~~
-- Add all UFO collisions
+- ~~Add all UFO collisions~~
+- Fix for slow collision issues
 - Add sfx
 - Add instructions to title and game over screens
 - Fix starfield so stars can't be super close to each other

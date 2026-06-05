@@ -203,31 +203,31 @@ game = scene:extend({
     end,
 
     star_behind_asteroid = function(_ENV, s, a)
-        return point_in_circle(s.x, s.y, a.x, a.y, a.radius)
+        return point_in_polygon(s.x, s.y, a:sides())
+        -- return point_in_circle(s.x, s.y, a.x, a.y, a.radius)
     end,
 
     star_behind_ufo = function(_ENV, s, ufo)
-
-        local x1 = ufo:is(ufo_large) and (ufo.x - 8) or (ufo.x - 4)
-        local x2 = ufo:is(ufo_large) and (ufo.x + 8) or (ufo.x + 4)
-
-        return point_in_rectangle(s.x, s.y, x1, ufo.y - 4, x2, ufo.y + 4)
+        return point_in_polygon(s.x, s.y, ufo:sides())
     end,
 
     star_behind_player = function(_ENV, s)
-        return point_in_circle(s.x, s.y, player.x, player.y, 3)
+        return point_in_polygon(s.x, s.y, player:sides())
+        -- return point_in_circle(s.x, s.y, player.x, player.y, 3)
     end,
 
     ufo_hits_player = function(_ENV, ufo)
-
+        return polygon_in_polygon(ufo:sides(), player:sides())
     end,
     
     bullet_hits_ufo = function(_ENV, b, ufo)
-
+        return point_in_polygon(b.x, b.y, ufo:sides())
+        --[[
         local x1 = ufo:is(ufo_large) and (ufo.x - 8) or (ufo.x - 4)
         local x2 = ufo:is(ufo_large) and (ufo.x + 8) or (ufo.x + 4)
 
         return point_in_rectangle(b.x, b.y, x1, ufo.y - 4, x2, ufo.y + 4)
+        ]]
     end,
 
     bullet_hits_player = function(_ENV, b)
@@ -235,14 +235,16 @@ game = scene:extend({
     end,
 
     bullet_hits_asteroid = function(_ENV, b, a)
-        -- use point/circle collision detection
-        return point_in_circle(b.x, b.y, a.x, a.y, a.radius)
+        return point_in_polygon(b.x, b.y, a:sides())
     end,
 
     asteroid_hits_player = function(_ENV, a)
 
         if (player.dead) return false
 
+        return polygon_in_polygon(a:sides(), player:sides())
+
+        --[[
         -- add a buffer here to be a little forgiving
         local radius = a.radius - a.hit_buffer
 
@@ -255,6 +257,7 @@ game = scene:extend({
         if (point_in_circle(player.center_right.x, player.center_right.y, a.x, a.y, radius)) return true
 
         return false
+        ]]
 
     end,
 

@@ -39,15 +39,35 @@ function enable_debug()
 
         if (not _ENV.dead) then
 
-            pset(_ENV.front.x, _ENV.front.y, 8)
-            pset(_ENV.rear.x, _ENV.rear.y, 8)
-            pset(_ENV.rear_left.x, _ENV.rear_left.y, 8)
-            pset(_ENV.rear_right.x, _ENV.rear_right.y, 8)
-            pset(_ENV.center_left.x, _ENV.center_left.y, 8)
-            pset(_ENV.center_right.x, _ENV.center_right.y, 8)
+            for s in all(_ENV:sides()) do
+                line(s.x1, s.y1, s.x2, s.y2, 8)
+            end
 
         end
         
+    end
+
+    local _ud = ufo.draw
+    local _uld = ufo_large.draw
+
+    ufo.draw = function(_ENV)
+
+        _ud(_ENV)
+
+        for s in all(_ENV:sides()) do
+            line(s.x1, s.y1, s.x2, s.y2, 8)
+        end
+
+    end
+
+    ufo_large.draw = function(_ENV)
+
+        _uld(_ENV)
+
+        for s in all(_ENV:sides()) do
+            line(s.x1, s.y1, s.x2, s.y2, 8)
+        end
+
     end
 
 end

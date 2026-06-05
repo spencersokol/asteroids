@@ -105,6 +105,11 @@ asteroid = entity:extend({
 
     draw = function(_ENV)
 
+        for side in all(sides(_ENV)) do
+            line(side.x1, side.y1, side.x2, side.y2, 7)
+        end
+
+        --[[
         for i = 1, #points do
 
             local j = i + 1
@@ -125,6 +130,8 @@ asteroid = entity:extend({
             )
 
         end
+        ]]
+        
     end,
 
     destroy = function(_ENV)
@@ -133,6 +140,34 @@ asteroid = entity:extend({
 
         sfx(2)
         explosion:new({ x = x, y = y })
+
+    end,
+
+    sides = function(_ENV)
+
+        local s = {}
+
+        for i = 1, #points do
+
+            local j = i + 1
+            if (j > #points) j = 1
+
+            local d1 = points[i]
+            local d2 = points[j]
+            
+            local r1 = i/#points -- rotation
+            local r2 = j/#points -- rotation
+
+            add(s, {
+                x1 = x + cos(r1 + spin) * d1,
+                y1 = y + sin(r1 + spin) * d1,
+                x2 = x + cos(r2 + spin) * d2,
+                y2 = y + sin(r2 + spin) * d2
+            })
+
+        end
+
+        return s
 
     end
 
