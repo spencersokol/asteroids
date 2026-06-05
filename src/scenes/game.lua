@@ -18,8 +18,7 @@ game = scene:extend({
         player = player_ship:new()
 
         for i = 1, 3 do
-            local s = ship:new({ x = (128 - (i * 6)), y = 6 })
-            add(ships, s)
+            add_life(_ENV)
         end
 
         spawn_asteroids(_ENV, 7)
@@ -82,7 +81,7 @@ game = scene:extend({
                 if (("player" == b.source) and bullet_hits_asteroid(_ENV, b, a)) then
                     a:destroy()
                     b:destroy()
-                    score += a.score
+                    update_score(_ENV, a.score)
                 end
             end
 
@@ -99,7 +98,7 @@ game = scene:extend({
                     status("bullet hit ufo")
                     current_ufo:destroy()
                     b:destroy()
-                    score += current_ufo.score
+                    update_score(_ENV, current_ufo.score)
                 end
 
             end
@@ -168,6 +167,25 @@ game = scene:extend({
 
     destroy = function(_ENV)
         scene.destroy(_ENV)
+    end,
+
+    update_score = function(_ENV, points)
+
+        local new_score = score + points
+
+        if ((score < 5000) and (new_score >= 5000)) then
+            add_life(_ENV)
+        elseif ((score < 10000) and (new_score >= 10000)) then
+            add_life(_ENV)
+        end
+
+        score += points
+
+    end,
+
+    add_life = function(_ENV)
+        local s = ship:new({ x = (128 - ((#ships + 1) * 6)), y = 6 })
+        add(ships, s)
     end,
 
     lose_life = function(_ENV)
@@ -276,24 +294,8 @@ game = scene:extend({
 
         if (not points_are_close(a.x, a.y, player.x, player.y)) return false
 
-        -- This is slow
         return polygon_in_polygon(a:sides(), player:sides())
 
-        --[[
-        -- add a buffer here to be a little forgiving
-        local radius = a.radius - a.hit_buffer
-
-        -- check the points first
-        if (point_in_circle(player.front.x, player.front.y, a.x, a.y, radius)) return true
-        if (point_in_circle(player.rear_left.x, player.rear_left.y, a.x, a.y, radius)) return true
-        if (point_in_circle(player.rear_right.x, player.rear_right.y, a.x, a.y, radius)) return true
-        if (point_in_circle(player.rear.x, player.rear.y, a.x, a.y, radius)) return true
-        if (point_in_circle(player.center_left.x, player.center_left.y, a.x, a.y, radius)) return true
-        if (point_in_circle(player.center_right.x, player.center_right.y, a.x, a.y, radius)) return true
-
-        return false
-        ]]
-        
     end,
 
     should_spawn_ufo = function(_ENV)
