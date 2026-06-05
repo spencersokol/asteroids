@@ -10,6 +10,8 @@ ufo_large = ufo:extend({
         
         score = 500
 
+        sfx(3)
+
     end,
 
     update = function(_ENV)
@@ -32,6 +34,21 @@ ufo_large = ufo:extend({
 
         spr(1, x, y)
         spr(2, x + 8, y)
+
+    end,
+
+    destroy = function(_ENV)
+
+        sfx(3, -2)
+
+        entity.destroy(_ENV)
+
+        if (dead) then
+                
+            sfx(2)
+            explosion:new({ x = x, y = y, max = 15 })
+
+        end
 
     end,
 

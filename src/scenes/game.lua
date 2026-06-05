@@ -21,7 +21,7 @@ game = scene:extend({
             add_life(_ENV)
         end
 
-        spawn_asteroids(_ENV, 7)
+        -- spawn_asteroids(_ENV, 7)
 
     end,
 
@@ -35,7 +35,7 @@ game = scene:extend({
             seconds_since_ufo_spawn += 1
         end
 
-        if (should_spawn_asteroids(_ENV)) spawn_asteroids(_ENV)
+        -- if (should_spawn_asteroids(_ENV)) spawn_asteroids(_ENV)
 
         if (should_spawn_ufo(_ENV)) spawn_ufo(_ENV)
 
@@ -95,7 +95,7 @@ game = scene:extend({
                 if (("ufo" == b.source) and bullet_hits_player(_ENV, b)) then
                     lose_life(_ENV)
                 elseif (("player" == b.source) and bullet_hits_ufo(_ENV, b, current_ufo)) then
-                    status("bullet hit ufo")
+                    current_ufo.dead = true
                     current_ufo:destroy()
                     b:destroy()
                     update_score(_ENV, current_ufo.score)
@@ -111,6 +111,8 @@ game = scene:extend({
         end
 
         if (current_ufo and ufo_hits_player(_ENV, current_ufo)) then
+            current_ufo.dead = true
+            current_ufo:destroy()
             lose_life(_ENV)
         end
 
@@ -305,7 +307,7 @@ game = scene:extend({
         -- 50% chance every 10 seconds
         if (seconds_since_ufo_spawn > 10) then
             seconds_since_ufo_spawn = 0
-            return (rnd(1) > 0.5)
+            return (rnd(1) > 0.1)
         end
 
         return false

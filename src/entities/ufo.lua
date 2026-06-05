@@ -8,6 +8,8 @@ ufo = entity:extend({
 
         buffer = 20
 
+        dead = false
+
         -- start from left
         ltr = true
         x = -buffer
@@ -40,6 +42,8 @@ ufo = entity:extend({
 
         reset(_ENV)
 
+        sfx(4)
+
     end,
 
     update = function(_ENV)
@@ -66,10 +70,16 @@ ufo = entity:extend({
 
     destroy = function(_ENV)
 
+        sfx(4, -2)
+
         entity.destroy(_ENV)
 
-        sfx(2)
-        explosion:new({ x = x, y = y, max = 15 })
+        if (dead) then
+
+            sfx(2)
+            explosion:new({ x = x, y = y, max = 15 })
+
+        end
 
     end,
 
@@ -169,7 +179,7 @@ ufo = entity:extend({
 
         -- kill it if it makes it across the screen
         if (ltr and (x > (127 + buffer))) or (not ltr and (x < -buffer)) then
-            entity.destroy(_ENV)
+            destroy(_ENV)
         end
         
     end
