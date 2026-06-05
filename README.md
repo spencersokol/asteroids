@@ -10,6 +10,12 @@ I wanna learn PICO-8, and my spouse's favorite game is Asteroids, so here we go.
 
 ## TODO
 
+- Fix UFO bullet hitting player
+- Add instructions to title and game over screens
+- Fix starfield so stars can't be super close to each other
+
+## ~~DONE~~
+
 - ~~Add UFOs and movement~~
 - ~~Add UFO sprite~~
 - ~~Add UFO firing bullets~~
@@ -19,13 +25,7 @@ I wanna learn PICO-8, and my spouse's favorite game is Asteroids, so here we go.
 - ~~Add extra lives~~
 - ~~Disable hold firing~~
 - ~~Add sfx~~
-- Add UFO targetting to player
-- Fix UFO bullet hitting player
-- Add instructions to title and game over screens
-- Fix starfield so stars can't be super close to each other
-
-## ~~DONE~~
-
+- ~~Add UFO targetting to player~~
 - ~~Add debugging utils~~
 - ~~Add OOP for scenes and entities~~
 - ~~Add ship~~
