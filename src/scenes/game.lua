@@ -104,7 +104,7 @@ game = scene:extend({
             end
 
             -- bullets should only travel so far
-            if (b.distance > 130) then
+            if (b.distance > 100) then
                 b:destroy()
             end
 

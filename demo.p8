@@ -28,7 +28,11 @@ __lua__
 #include src/main.lua
 
 function _init()
-    scene:load(title)    
+    
+    poke(0x5f5c,255) -- disable hold key for btnp() calls
+    
+    scene:load(title)
+
 end
 
 __gfx__
