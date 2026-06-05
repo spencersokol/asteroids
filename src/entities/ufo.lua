@@ -73,6 +73,10 @@ ufo = entity:extend({
 
     end,
 
+    center = function(_ENV)
+        return { x = x + 4, y = y + 4 }
+    end,
+
     sides = function(_ENV)
 
         return {

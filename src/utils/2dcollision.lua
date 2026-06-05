@@ -1,3 +1,24 @@
+function points_are_close(x1, y1, x2, y2, closeness)
+
+    closeness = closeness or 15
+
+    -- transpose everything just to make
+    -- sure every coord is positive
+    x1 += 128
+    y1 += 128
+    x2 += 128
+    y2 += 128
+
+    local x_distance = x1 - x2
+    local y_distance = y1 - y2
+
+    -- optimization to only check close objects
+    if ((abs(x_distance) > closeness) or (abs(y_distance) > closeness)) return false
+
+    return true
+
+end
+
 function point_in_circle(x, y, cx, cy, radius)
 
     -- transpose everything just to make
@@ -10,12 +31,10 @@ function point_in_circle(x, y, cx, cy, radius)
     local x_distance = x - cx
     local y_distance = y - cy
 
-    -- optimization to only check close objects
-    if ((abs(x_distance) > 10) or (abs(y_distance) > 10)) return false
-
     local distance = sqrt((x_distance * x_distance) + (y_distance * y_distance))
 
     return (distance <= radius)
+
 end
 
 function line_in_circle(line, cx, cy, radius)
@@ -75,10 +94,8 @@ end
 
 function polygon_in_polygon(sides1, sides2)
 
-    -- polygon is inside the other
-    local collision = point_in_polygon(sides2[1].x1, sides2[1].y1, sides1)
-    if (collision) return true
-    
+    local collision = false
+
     for s in all(sides1) do
 
         collision = line_in_polygon(s, sides2)
@@ -86,6 +103,9 @@ function polygon_in_polygon(sides1, sides2)
 
     end
 
-    return false
+    -- polygon is inside the other
+    collision = point_in_polygon(sides2[1].x1, sides2[1].y1, sides1)
+    
+    return collision
 
 end

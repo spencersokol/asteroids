@@ -173,7 +173,9 @@ game = scene:extend({
     lose_life = function(_ENV)
 
         local s = ships[#ships]
+
         del(ships, s)
+        
         s:destroy()
         player:kill()
                 
@@ -203,45 +205,78 @@ game = scene:extend({
     end,
 
     star_behind_asteroid = function(_ENV, s, a)
-        return point_in_polygon(s.x, s.y, a:sides())
-        -- return point_in_circle(s.x, s.y, a.x, a.y, a.radius)
+
+        if (not points_are_close(s.x, s.y, a.x, a.y)) return false
+
+        -- return point_in_polygon(s.x, s.y, a:sides())
+        return point_in_circle(s.x, s.y, a.x, a.y, a.radius)
+
     end,
 
     star_behind_ufo = function(_ENV, s, ufo)
+
+        if (not points_are_close(s.x, s.y, ufo.x, ufo.y)) return false
+
         return point_in_polygon(s.x, s.y, ufo:sides())
+
     end,
 
     star_behind_player = function(_ENV, s)
-        return point_in_polygon(s.x, s.y, player:sides())
-        -- return point_in_circle(s.x, s.y, player.x, player.y, 3)
+
+        if (player.dead) return false
+
+        if (not points_are_close(s.x, s.y, player.x, player.y)) return false
+
+        -- return point_in_polygon(s.x, s.y, player:sides()) -- slow?
+        return point_in_circle(s.x, s.y, player.x, player.y, 3)
+
     end,
 
     ufo_hits_player = function(_ENV, ufo)
+
+        if (player.dead) return false
+        
+        local center = ufo:center()
+        
+        if (not points_are_close(center.x, center.y, player.x, player.y)) return false
+
         return polygon_in_polygon(ufo:sides(), player:sides())
+
     end,
     
     bullet_hits_ufo = function(_ENV, b, ufo)
-        return point_in_polygon(b.x, b.y, ufo:sides())
-        --[[
-        local x1 = ufo:is(ufo_large) and (ufo.x - 8) or (ufo.x - 4)
-        local x2 = ufo:is(ufo_large) and (ufo.x + 8) or (ufo.x + 4)
 
-        return point_in_rectangle(b.x, b.y, x1, ufo.y - 4, x2, ufo.y + 4)
-        ]]
+        if (not points_are_close(b.x, b.y, ufo.x, ufo.y)) return false
+
+        return point_in_polygon(b.x, b.y, ufo:sides())
+
     end,
 
     bullet_hits_player = function(_ENV, b)
+
+        if (player.dead) return false
+        
+        if (not points_are_close(b.x, b.y, player.x, player.y)) return false
+
         return point_in_polygon(b.x, b.y, player:sides())
+
     end,
 
     bullet_hits_asteroid = function(_ENV, b, a)
-        return point_in_polygon(b.x, b.y, a:sides())
+
+        if (not points_are_close(b.x, b.y, a.x, a.y)) return false
+
+        return point_in_circle(b.x, b.y, a.x, a.y, a.radius)
+        -- return point_in_polygon(b.x, b.y, a:sides())
     end,
 
     asteroid_hits_player = function(_ENV, a)
 
         if (player.dead) return false
 
+        if (not points_are_close(a.x, a.y, player.x, player.y)) return false
+
+        -- This is slow
         return polygon_in_polygon(a:sides(), player:sides())
 
         --[[
@@ -258,7 +293,7 @@ game = scene:extend({
 
         return false
         ]]
-
+        
     end,
 
     should_spawn_ufo = function(_ENV)

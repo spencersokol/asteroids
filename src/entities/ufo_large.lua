@@ -35,6 +35,10 @@ ufo_large = ufo:extend({
 
     end,
 
+    center = function(_ENV)
+        return { x = x + 8, y = y + 4 }
+    end,
+
     sides = function(_ENV)
 
         return {
