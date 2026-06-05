@@ -10,7 +10,9 @@ I wanna learn PICO-8, and my spouse's favorite game is Asteroids, so here we go.
 
 ## TODO
 
-- Fix UFO bullet hitting player
+- ~~Fix UFO bullet hitting player~~
+- ~~Fix player spawn when UFO nearby~~
+- Refactor collisions to player and ufo
 - Add instructions to title and game over screens
 - Fix starfield so stars can't be super close to each other
 

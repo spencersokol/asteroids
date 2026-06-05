@@ -91,6 +91,7 @@ ufo = entity:extend({
 
     sides = function(_ENV)
 
+        -- draw outline based on sprite
         return {
             { x1 = x, y1 = y + 3, x2 = x + 3, y2 = y },
             { x1 = x + 3, y1 = y, x2 = x + 4, y2 = y },
@@ -102,6 +103,18 @@ ufo = entity:extend({
 
     end,
 
+    hits_player = function(_ENV, player)
+
+        if (player.dead) return false
+        
+        local center = center(_ENV)
+        
+        if (not points_are_close(center.x, center.y, player.x, player.y)) return false
+
+        return polygon_in_polygon(sides(_ENV), player:sides())
+
+    end,
+    
     handle_frames = function(_ENV)
 
         frames += 1

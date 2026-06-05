@@ -23,7 +23,7 @@ bullet = entity:extend({
         rotation = rotation or 0
 
         -- movement
-        speed = 5
+        speed = 3.5
         x_velocity = cos(rotation) * speed
         y_velocity = sin(rotation) * speed
         distance = 0
@@ -56,6 +56,33 @@ bullet = entity:extend({
         
         entity.destroy(_ENV)
 
-    end
+    end,
+
+    hits_ufo = function(_ENV, ufo)
+
+        if (not points_are_close(x, y, ufo.x, ufo.y)) return false
+
+        return point_in_polygon(x, y, ufo:sides())
+
+    end,
+
+    hits_player = function(_ENV, player)
+
+        if (player.dead) return false
+        
+        if (not points_are_close(x, y, player.x, player.y)) return false
+
+        return point_in_polygon(x, y, player:sides())
+
+    end,
+
+    hits_asteroid = function(_ENV, a)
+
+        if (not points_are_close(x, y, a.x, a.y)) return false
+
+        return point_in_circle(x, y, a.x, a.y, a.radius)
+        -- return point_in_polygon(b.x, b.y, a:sides())
+    end,
+
 
 })

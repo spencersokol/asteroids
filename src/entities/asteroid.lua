@@ -143,6 +143,16 @@ asteroid = entity:extend({
 
     end,
 
+    hits_player = function(_ENV, player)
+
+        if (player.dead) return false
+
+        if (not points_are_close(x, y, player.x, player.y)) return false
+
+        return polygon_in_polygon(sides(_ENV), player:sides())
+
+    end,
+
     sides = function(_ENV)
 
         local s = {}

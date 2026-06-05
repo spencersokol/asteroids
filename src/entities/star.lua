@@ -36,6 +36,34 @@ star = entity:extend({
 
     draw = function(_ENV)
         pset(x, y, clr)
+    end,
+
+    behind_asteroid = function(_ENV, a)
+
+        if (not points_are_close(x, y, a.x, a.y)) return false
+
+        -- return point_in_polygon(x, y, a:sides())
+        return point_in_circle(x, y, a.x, a.y, a.radius)
+
+    end,
+
+    behind_ufo = function(_ENV, ufo)
+
+        if (not points_are_close(x, y, ufo.x, ufo.y)) return false
+
+        return point_in_polygon(x, y, ufo:sides())
+
+    end,
+
+    behind_player = function(_ENV, player)
+
+        if (player.dead) return false
+
+        if (not points_are_close(x, y, player.x, player.y)) return false
+
+        -- return point_in_polygon(s.x, s.y, player:sides()) -- slow?
+        return point_in_circle(x, y, player.x, player.y, 3)
+
     end
 
 })

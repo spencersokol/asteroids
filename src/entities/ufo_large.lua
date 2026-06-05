@@ -46,7 +46,7 @@ ufo_large = ufo:extend({
         if (dead) then
                 
             sfx(2)
-            explosion:new({ x = x, y = y, max = 15 })
+            explosion:new({ x = x, y = y, max = 25 })
 
         end
 
@@ -58,6 +58,7 @@ ufo_large = ufo:extend({
 
     sides = function(_ENV)
 
+        -- draw outline based on sprite
         return {
             { x1 = x, y1 = y + 3, x2 = x + 1, y2 = y + 3 },
             { x1 = x + 1, y1 = y + 3, x2 = x + 4, y2 = y },
