@@ -10,6 +10,7 @@ game = scene:extend({
         seconds_since_ufo_spawn = 0
 
         score = 0
+        newhighscore = false
 
         player = player_ship:new()
 
@@ -160,7 +161,13 @@ game = scene:extend({
         print("score: " .. score, 1, 1, 7)
 
         if (#ships == 0) then
+
             print("\#0game over", 50, 64, 7)
+
+            if (newhighscore) then
+                cprint("new high score!", 64, 80, 9)
+            end
+
         end
 
     end,
@@ -196,6 +203,12 @@ game = scene:extend({
         
         s:destroy()
         player:kill()
+
+        if ((0 == #ships) and (score > highscore)) then
+            newhighscore = true
+            highscore = score
+            dset(0, highscore)
+        end
                 
     end,
 
