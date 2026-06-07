@@ -47,8 +47,7 @@ title = scene:extend({
         pset(104,50, 0)
 
         if (highscore > 0) then
-            cprint("high score:" .. tostr(highscore), 64, 9, 2)
-            cprint("high score:" .. tostr(highscore), 64, 8, 7)
+            scprint("high score:" .. tostr(highscore), 64, 8, 7)
         end
 
         for i = 34, 42 do
@@ -65,8 +64,7 @@ title = scene:extend({
             cprint("press any key to start", 64, 80, blink())
         end
 
-        cprint("turn: ⬅️➡️ thrust: ⬆️ fire: 🅾️", 56, 101, 2)
-        cprint("turn: ⬅️➡️ thrust: ⬆️ fire: 🅾️", 56, 100, 7)
+        scprint("turn: ⬅️➡️ thrust: ⬆️ fire: 🅾️", 56, 100, 7)
 
         print("v" .. version, 127 - ((#version + 1) * 4), 120, 1)
 

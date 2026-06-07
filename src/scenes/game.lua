@@ -173,7 +173,7 @@ game = scene:extend({
 
         if (#ships == 0) then
 
-            cprint("\#0game over", 66, 64, 7)
+            scprint("game over", 66, 64, 7)
 
             if (seconds_since_game_over > 2) then
                 cprint("press any key to continue", 64, 74, blink())

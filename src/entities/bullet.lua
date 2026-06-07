@@ -80,8 +80,8 @@ bullet = entity:extend({
 
         if (not points_are_close(x, y, a.x, a.y)) return false
 
-        return point_in_circle(x, y, a.x, a.y, a.radius)
-        -- return point_in_polygon(b.x, b.y, a:sides())
+        -- return point_in_circle(x, y, a.x, a.y, a.radius)
+        return point_in_polygon(x, y, a:sides())
     end,
 
 
