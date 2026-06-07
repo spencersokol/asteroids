@@ -120,7 +120,7 @@ game = scene:extend({
             lose_life(_ENV)
         end
 
-        if (#ships == 0) and btnp(5) then
+        if ((#ships == 0) and (btnp(❎) or btnp(🅾️))) then
             scene:load(title)
         end
 
@@ -166,9 +166,10 @@ game = scene:extend({
         if (#ships == 0) then
 
             print("\#0game over", 50, 64, 7)
+            cprint("press any key to continue", 64, 74, blink())
 
             if (newhighscore) then
-                cprint("new high score!", 64, 80, 9)
+                cprint("new high score!", 64, 20, 9)
             end
 
         end

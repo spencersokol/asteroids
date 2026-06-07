@@ -12,7 +12,7 @@ I wanna learn PICO-8, and my spouse's favorite game is Asteroids, so here we go.
 
 - ~~Add high scoring~~
 - ~~Add camera shake on player death~~
-- Add instructions to title and game over screens
+- ~~Add instructions to title and game over screens~~
 - ~~Add version to title screen~~
 - Fix starfield so stars can't be super close to each other
 

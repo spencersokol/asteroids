@@ -38,19 +38,18 @@ title = scene:extend({
             e:draw()
         end
 
+        if (highscore > 0) then
+            cprint("high score: " .. tostr(highscore), 64, 4, 2)
+        end
+
         cprint("Not Necessarily", 64, 36, 7)
         cprint("Asteroids", 64, 44, 7)
 
         if (frames > 15) then
-            cprint("press any key to start", 64, 64, 9)
+            cprint("press any key to start", 64, 80, blink())
         end
 
-        cprint("turn: ⬅️➡️ thrust: ⬆️ fire: 🅾️", 56, 80, 7)
-
-        if (highscore > 0) then
-            cprint("high score:", 64, 108, 2)
-            cprint(highscore, 64, 116, 2)
-        end
+        cprint("turn: ⬅️➡️ thrust: ⬆️ fire: 🅾️", 56, 100, 7)
 
         print("v" .. version, 127 - ((#version + 1) * 4), 120, 1)
 
