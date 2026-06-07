@@ -4,6 +4,9 @@ __lua__
 
 #include src/utils/globals.lua
 #include src/utils/debug.lua
+#include src/utils/coroutines.lua
+#include src/utils/text.lua
+#include src/utils/screen.lua
 #include src/utils/class.lua
 #include src/utils/gameobject.lua
 #include src/utils/2dcollision.lua

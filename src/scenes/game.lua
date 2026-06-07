@@ -36,6 +36,8 @@ game = scene:extend({
             seconds_since_ufo_spawn += 1
         end
 
+        exec_actions()
+        
         if (should_spawn_asteroids(_ENV)) spawn_asteroids(_ENV)
 
         if (should_spawn_ufo(_ENV)) spawn_ufo(_ENV)
@@ -197,6 +199,8 @@ game = scene:extend({
 
     lose_life = function(_ENV)
 
+        camera_shake()
+        
         local s = ships[#ships]
 
         del(ships, s)
