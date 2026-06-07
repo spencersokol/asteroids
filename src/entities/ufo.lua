@@ -26,7 +26,7 @@ ufo = entity:extend({
 
         end
 
-        y = flr(rnd(127))
+        y = flr(rnd(90)) + 15
 
         frames = 0
         frames_since_firing = 0

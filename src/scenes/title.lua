@@ -38,12 +38,27 @@ title = scene:extend({
             e:draw()
         end
 
+        rectfill(23, 3, 104, 50, 6)
+        rectfill(24, 4, 103, 49, 0)
+
+        pset(23, 3, 0)
+        pset(23, 50, 0)
+        pset(104, 3, 0)
+        pset(104,50, 0)
+
         if (highscore > 0) then
-            cprint("high score: " .. tostr(highscore), 64, 4, 2)
+            cprint("high score:" .. tostr(highscore), 64, 8, 7)
         end
 
-        cprint("Not Necessarily", 64, 36, 7)
-        cprint("Asteroids", 64, 44, 7)
+        for i = 34, 42 do
+            spr(i, 28 + ((i - 34) * 8), 30)
+        end
+
+        for i = 50, 58 do
+            spr(i, 28 + ((i - 50) * 8), 38)
+        end
+
+        print("\#2not necessarily", 19, 23, 7)
 
         if (frames > 15) then
             cprint("press any key to start", 64, 80, blink())

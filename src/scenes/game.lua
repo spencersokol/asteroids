@@ -8,6 +8,7 @@ game = scene:extend({
         frames = 0
         seconds_since_asteroid_spawn = 0
         seconds_since_ufo_spawn = 0
+        seconds_since_game_over = 0
 
         score = 0
         highscore = dget(0)
@@ -32,9 +33,16 @@ game = scene:extend({
         frames += 1
         
         if (frames > 30) then
+
             frames = 0
-            seconds_since_asteroid_spawn += 1
-            seconds_since_ufo_spawn += 1
+
+            if (not (0 == #ships)) then
+                seconds_since_asteroid_spawn += 1
+                seconds_since_ufo_spawn += 1
+            elseif (seconds_since_game_over < 5) then
+                seconds_since_game_over += 1
+            end
+
         end
 
         exec_actions()
@@ -120,7 +128,7 @@ game = scene:extend({
             lose_life(_ENV)
         end
 
-        if ((#ships == 0) and (btnp(❎) or btnp(🅾️))) then
+        if ((0 == #ships) and (seconds_since_game_over > 2) and (btnp(❎) or btnp(🅾️))) then
             scene:load(title)
         end
 
@@ -165,8 +173,11 @@ game = scene:extend({
 
         if (#ships == 0) then
 
-            print("\#0game over", 50, 64, 7)
-            cprint("press any key to continue", 64, 74, blink())
+            cprint("\#0game over", 66, 64, 7)
+
+            if (seconds_since_game_over > 2) then
+                cprint("press any key to continue", 64, 74, blink())
+            end
 
             if (newhighscore) then
                 cprint("new high score!", 64, 20, 9)
