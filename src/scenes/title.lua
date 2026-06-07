@@ -3,7 +3,7 @@ title = scene:extend({
     init = function(_ENV)
 
         starfield:new()
-        
+
         highscore = dget(0)
 
         local c = flr(rnd(10)) + 10
@@ -42,6 +42,8 @@ title = scene:extend({
             cprint("high score:", 64, 108, 2)
             cprint(highscore, 64, 116, 2)
         end
+
+        print("v" .. version, 127 - ((#version + 1) * 4), 120, 1)
 
     end
 })
