@@ -38,15 +38,16 @@ title = scene:extend({
             e:draw()
         end
 
-        rectfill(23, 3, 104, 50, 6)
-        rectfill(24, 4, 103, 49, 0)
+        rectfill(23, 18, 104, 50, 6)
+        rectfill(24, 19, 103, 49, 0)
 
-        pset(23, 3, 0)
+        pset(23, 18, 0)
         pset(23, 50, 0)
-        pset(104, 3, 0)
+        pset(104, 18, 0)
         pset(104,50, 0)
 
         if (highscore > 0) then
+            cprint("high score:" .. tostr(highscore), 64, 9, 2)
             cprint("high score:" .. tostr(highscore), 64, 8, 7)
         end
 
@@ -64,6 +65,7 @@ title = scene:extend({
             cprint("press any key to start", 64, 80, blink())
         end
 
+        cprint("turn: ⬅️➡️ thrust: ⬆️ fire: 🅾️", 56, 101, 2)
         cprint("turn: ⬅️➡️ thrust: ⬆️ fire: 🅾️", 56, 100, 7)
 
         print("v" .. version, 127 - ((#version + 1) * 4), 120, 1)
