@@ -4,6 +4,7 @@ title = scene:extend({
 
         starfield:new()
 
+        frames = 0
         highscore = dget(0)
 
         local c = flr(rnd(10)) + 10
@@ -17,11 +18,13 @@ title = scene:extend({
 
     update = function(_ENV)
 
+        frames += 1
+
         for e in all(entity.objects) do
             e:update()
         end
 
-        if btnp(5) then 
+        if ((frames > 15) and (btnp(❎) or btnp(🅾️))) then 
             scene:load(game)
         end
 
@@ -37,6 +40,12 @@ title = scene:extend({
 
         cprint("Not Necessarily", 64, 36, 7)
         cprint("Asteroids", 64, 44, 7)
+
+        if (frames > 15) then
+            cprint("press any key to start", 64, 64, 9)
+        end
+
+        cprint("turn: ⬅️➡️ thrust: ⬆️ fire: 🅾️", 56, 80, 7)
 
         if (highscore > 0) then
             cprint("high score:", 64, 108, 2)

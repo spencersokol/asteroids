@@ -10,6 +10,7 @@ game = scene:extend({
         seconds_since_ufo_spawn = 0
 
         score = 0
+        highscore = dget(0)
         newhighscore = false
 
         player = player_ship:new()

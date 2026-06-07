@@ -74,7 +74,7 @@ player_ship = ship:extend({
         end
 
         -- handle movement input
-        if btn(2) then
+        if btn(⬆️) then
             sfx(2)
             thrusting = true
             x_velocity = cos(rotation) * speed
@@ -86,16 +86,16 @@ player_ship = ship:extend({
         end
 
         -- handle rotation input
-        if btn(0) then
+        if btn(⬅️) then
             rotation += rotation_speed
         end
         
-        if btn(1) then
+        if btn(➡️) then
             rotation -= rotation_speed
         end
 
         -- handle fire
-        if btnp(4) then
+        if btnp(🅾️) then
 
             local bullet_count = 0
 
